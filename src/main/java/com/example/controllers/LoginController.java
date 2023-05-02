@@ -3,7 +3,6 @@ package com.example.controllers;
 import com.example.connection.DatabaseHandler;
 import com.example.main.CurseProject;;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +34,7 @@ public class LoginController{
     private Button regestrationButton;
 
     @FXML
-    void initialize() throws IOException {
+    void initialize(){
         loginButton.setOnAction(actionEvent -> {
             loginButton.getScene().getWindow().hide();
             String logg = inputLogin.getText().trim();
@@ -45,19 +44,10 @@ public class LoginController{
                 singInNewUser(logg, pass);
             else
                 System.out.println("Empty strings");
-            try {
-                cp.escLogin();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         });
         regestrationButton.setOnAction(actionEvent -> {
             regestrationButton.getScene().getWindow().hide();
-            try{
-                cp.registration();
-            }catch (IOException e){
-                System.out.println("Click");
-            }
+            cp.window("registration.fxml", 626, 1280, "registration");
         });
     }
 
@@ -77,18 +67,11 @@ public class LoginController{
             e.printStackTrace();
         }
         if(counter != 0){
-            try {
-                cp.product();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("product.fxml", 720, 1280, "product");
         }
         else{
-            try {
-                cp.error();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("error.fxml", 120, 360, "error");
+
         }
     }
 }

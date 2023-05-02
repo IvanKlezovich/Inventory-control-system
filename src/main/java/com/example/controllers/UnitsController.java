@@ -30,11 +30,7 @@ public class UnitsController {
     void initialize(){
         CloseUnitsButton.setOnAction(actionEvent -> {
             CloseUnitsButton.getScene().getWindow().hide();
-            try{
-                cp.product();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("product.fxml", 720, 1280, "product");
         });
     }
 }

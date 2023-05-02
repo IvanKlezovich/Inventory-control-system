@@ -30,11 +30,7 @@ public class OrderController {
     void initialize(){
         CloseOrderButton.setOnAction(actionEvent -> {
             CloseOrderButton.getScene().getWindow().hide();
-            try{
-                cp.product();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("product.fxml", 720, 1280, "product");
         });
     }
 

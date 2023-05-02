@@ -6,22 +6,19 @@ import com.example.tables.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ProductController {
-    private Product product = new Product();
-    private ObservableList<Product> products = FXCollections.observableArrayList();
+    private final ObservableList<Product> products = FXCollections.observableArrayList();
     private final CurseProject cp = new CurseProject();
-    private DatabaseHandler db = new DatabaseHandler();
+    private final DatabaseHandler db = new DatabaseHandler();
+
 
     @FXML
     private Button OpenOrderButton;
@@ -57,42 +54,38 @@ public class ProductController {
     @FXML
     void initialize(){
         initDate();
-        //productTable.setItems(products);
         OpenOrderButton.setOnAction(actionEvent -> {
            OpenOrderButton.getScene().getWindow().hide();
-            try{
-                cp.order();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+           cp.window("order.fxml", 720, 1280, "order");
         });
         OpenProviderButton.setOnAction(actionEvent -> {
             OpenProviderButton.getScene().getWindow().hide();
-            try{
-                cp.provider();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("provider.fxml", 720, 1280, "provider");
         });
         OpenUnitsButton.setOnAction(actionEvent -> {
             OpenUnitsButton.getScene().getWindow().hide();
-            try{
-                cp.units();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("units.fxml", 720, 1280, "units");
+        });
+        updateButton.setOnAction(actionEvent -> {
+            System.out.println("нажали на обновление");
+            //cp.window();
+        });
+        insertButton.setOnAction(actionEvent -> {
+            System.out.println("нажали на добавление");
+
+        });
+        deleteButton.setOnAction(actionEvent -> {
+            System.out.println("нажали на удаление");
+
         });
     }
 
     private void initDate() {
-        /*idOfProduct.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id_product"));
-        nameOfProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("name_product"));
-        idOfEnum.setCellValueFactory(new PropertyValueFactory<Product, String>("id_enum"));
-        countOfWare.setCellValueFactory(new PropertyValueFactory<Product, Integer>("count_ware"));
-        description.setCellValueFactory(new PropertyValueFactory<Product, String>("description"));
 
-        ResultSet rs =  db.getProduct(product);
+        String query = "SELECT * FROM products";
+
         try{
+            ResultSet rs = db.getDbconnection().createStatement().executeQuery(query);
             while (rs.next()){
                 int id = rs.getInt("idOfProduct");
                 String name = rs.getString("nameOfProduct");
@@ -101,12 +94,19 @@ public class ProductController {
                 String des = rs.getString("description");
 
                 Product product = new Product(id, name, idEnum, count, des);
-
                 products.add(product);
             }
-        }catch (SQLException e){
+            rs.close();
+        }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
 
-        }*/
+        idOfProduct.setCellValueFactory(new PropertyValueFactory<>("id_product"));
+        /*nameOfProduct.setCellValueFactory(new PropertyValueFactory<>("name_product"));
+        idOfEnum.setCellValueFactory(new PropertyValueFactory<>("id_enum"));
+        countOfWare.setCellValueFactory(new PropertyValueFactory<>("count_ware"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        productTable.setItems(products);*/
+        }
     }
 }

@@ -15,11 +15,7 @@ public class ErrorController {
     void initialize() {
         errorButton.setOnAction(actionEvent -> {
             errorButton.getScene().getWindow().hide();
-            try {
-                cp.escLogin();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("error.fxml", 360, 720, "error");
         });
 
     }

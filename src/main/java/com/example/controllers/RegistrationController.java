@@ -36,11 +36,7 @@ public class RegistrationController {
         });
         backButton.setOnAction(actionEvent -> {
             backButton.getScene().getWindow().hide();
-            try {
-                cp.escLogin();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+            cp.window("login.fxml", 720, 1280, "login");
         });
     }
 }
