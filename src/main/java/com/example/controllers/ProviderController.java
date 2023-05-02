@@ -30,7 +30,7 @@ public class ProviderController {
     void initialize(){
         CloseProviderButton.setOnAction(actionEvent -> {
             CloseProviderButton.getScene().getWindow().hide();
-            cp.window("product.fxml", 720, 1280, "product");
+            cp.window("product.fxml", 720, 635, "product");
         });
     }
 }

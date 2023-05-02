@@ -67,7 +67,7 @@ public class LoginController{
             e.printStackTrace();
         }
         if(counter != 0){
-            cp.window("product.fxml", 720, 1280, "product");
+            cp.window("product.fxml", 720, 635, "product");
         }
         else{
             cp.window("error.fxml", 120, 360, "error");
