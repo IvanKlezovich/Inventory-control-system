@@ -25,7 +25,7 @@ public class DatabaseHandler implements Const{
     public void singUpUser(User user){
         String insert = "INSERT " + Const.USER_TABLE + "("
                 + Const.USER_NAME + "," + Const.USER_PASSWORD + ")"
-                + "VALUES(?,?)";
+                + "VALUES(?,?);";
         try {
             PreparedStatement psSt =
                     getDbconnection().prepareStatement(insert);
@@ -39,10 +39,20 @@ public class DatabaseHandler implements Const{
 
     }
 
-    public ResultSet getProduct(Product product){
-        ResultSet rs = null;
-
-        return rs;
+    public void setProduct(Product product){
+        String insert = "INSERT " + Const.PRODUCTS_TABLE + "(" +
+                Const.NAME_PRODUCT + "," + Const.ID_ENUM + "," +
+                Const.COUNT_WARE + "," + Const.DESCRIPTION + ")"
+                + "VALUES(?,?,?,?);";
+        try{
+            PreparedStatement psSt = getDbconnection().prepareStatement(insert);
+            psSt.setString(1, product.getNameOfProduct());
+            psSt.setString(2, product.getIdOfEnum());
+            psSt.setInt(3, product.getCountOfWare());
+            psSt.setString(4, product.getDescription());
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     public ResultSet getUser(User user){

@@ -6,10 +6,14 @@ import com.example.tables.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +23,7 @@ public class ProductController {
     private final CurseProject cp = new CurseProject();
     private final DatabaseHandler db = new DatabaseHandler();
 
+    @FXML private TableView productTable;
 
     @FXML
     private Button OpenOrderButton;
@@ -30,19 +35,6 @@ public class ProductController {
     private Button OpenUnitsButton;
 
     @FXML
-    private TableView<Product> productTable;
-    @FXML
-    private TableColumn<Product, Integer> idOfProduct;
-    @FXML
-    private TableColumn<Product, String> nameOfProduct;
-    @FXML
-    private TableColumn<Product, String> idOfEnum;
-    @FXML
-    private TableColumn<Product, Integer> countOfWare;
-    @FXML
-    private TableColumn<Product, String> description;
-
-    @FXML
     private Button deleteButton;
 
     @FXML
@@ -52,11 +44,26 @@ public class ProductController {
     private Button updateButton;
 
     @FXML
+    private Button AddButton;
+
+    @FXML
+    private TextField countField;
+
+    @FXML
+    private TextField desField;
+
+    @FXML
+    private TextField enumField;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
     void initialize(){
         initDate();
         OpenOrderButton.setOnAction(actionEvent -> {
            OpenOrderButton.getScene().getWindow().hide();
-           cp.window("order.fxml", 720, 1280, "order");
+            cp.window("order.fxml", 720, 1280, "order");
         });
         OpenProviderButton.setOnAction(actionEvent -> {
             OpenProviderButton.getScene().getWindow().hide();
@@ -71,12 +78,16 @@ public class ProductController {
             //cp.window();
         });
         insertButton.setOnAction(actionEvent -> {
-            System.out.println("нажали на добавление");
-
+            cp.window("addProduct.fxml", 400, 300, "addProduct");
+            String name = nameField.getText().trim();
+            String idEnum = enumField.getText().trim();
+            int count = Integer.parseInt(countField.getText().trim());
+            String des = desField.getText().trim();
+            Product product = new Product(name, idEnum, count, des);
+            db.setProduct(product);
         });
         deleteButton.setOnAction(actionEvent -> {
             System.out.println("нажали на удаление");
-
         });
     }
 
@@ -99,14 +110,24 @@ public class ProductController {
             rs.close();
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
-
-        idOfProduct.setCellValueFactory(new PropertyValueFactory<>("id_product"));
-        /*nameOfProduct.setCellValueFactory(new PropertyValueFactory<>("name_product"));
-        idOfEnum.setCellValueFactory(new PropertyValueFactory<>("id_enum"));
-        countOfWare.setCellValueFactory(new PropertyValueFactory<>("count_ware"));
-        description.setCellValueFactory(new PropertyValueFactory<>("description"));
-
-        productTable.setItems(products);*/
         }
+
+        TableColumn<Product, Integer> idOfProduct = new TableColumn<>("Id_product");
+        idOfProduct.setCellValueFactory(new PropertyValueFactory<>("idOfProduct"));
+
+        TableColumn<Product, String> nameOfProduct = new TableColumn<>("name_Product");
+        nameOfProduct.setCellValueFactory(new PropertyValueFactory<>("nameOfProduct"));
+
+        TableColumn<Product, String> idOfEnum = new TableColumn<>("Id_Enum");
+        idOfEnum.setCellValueFactory(new PropertyValueFactory<>("idOfEnum"));
+
+        TableColumn<Product, Integer> countOfWare = new TableColumn<>("count_ware");
+        countOfWare.setCellValueFactory(new PropertyValueFactory<>("countOfWare"));
+
+        TableColumn<Product, String> description = new TableColumn<>("description");
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        productTable.getColumns().addAll(idOfProduct, nameOfProduct,idOfEnum, countOfWare, description);
+
+        productTable.setItems(products);
     }
 }

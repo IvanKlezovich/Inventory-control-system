@@ -30,7 +30,7 @@ public class UnitsController {
     void initialize(){
         CloseUnitsButton.setOnAction(actionEvent -> {
             CloseUnitsButton.getScene().getWindow().hide();
-            cp.window("product.fxml", 720, 1280, "product");
+            cp.window("product.fxml", 720, 635, "product");
         });
     }
 }
