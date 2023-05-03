@@ -9,23 +9,17 @@ import javafx.scene.control.TableView;
 import java.io.IOException;
 
 public class OrderController {
-
     CurseProject cp = new CurseProject();
     @FXML
     private Button CloseOrderButton;
-
     @FXML
     private TableView<?> Table;
-
     @FXML
     private Button deleteButton;
-
     @FXML
     private Button insertButton;
-
     @FXML
     private Button updateButton;
-
     @FXML
     void initialize(){
         CloseOrderButton.setOnAction(actionEvent -> {
