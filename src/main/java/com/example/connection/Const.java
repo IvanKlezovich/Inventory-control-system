@@ -16,7 +16,7 @@ public interface Const {
     String DELIVERY_TIME = "deliveryTime";
 
     String PRODUCTS_TABLE = "products";
-    String ID_PRODUCT = "idproduct";
+    String ID_PRODUCT = "idOfProduct";
     String NAME_PRODUCT = "nameOfProduct";
     String ID_ENUM = "idOfEnum";
     String COUNT_WARE = "countOfWare";
