@@ -6,7 +6,6 @@ public class Product {
     private String idOfEnum;
     private int countOfWare;
     private String description;
-
     public int getIdOfProduct() {
         return idOfProduct;
     }
@@ -37,16 +36,23 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Product() {
+    @Override
+    public String toString() {
+        return "Product{" +
+                "idOfProduct=" + idOfProduct +
+                ", nameOfProduct='" + nameOfProduct + '\'' +
+                ", idOfEnum='" + idOfEnum + '\'' +
+                ", countOfWare=" + countOfWare +
+                ", description='" + description + '\'' +
+                '}';
     }
-
+    public Product() {}
     public Product(String nameOfProduct, String idOfEnum, int countOfWare, String description) {
         this.nameOfProduct = nameOfProduct;
         this.idOfEnum = idOfEnum;
         this.countOfWare = countOfWare;
         this.description = description;
     }
-
     public Product(int idOfProduct, String nameOfProduct, String idOfEnum, int countOfWare, String description) {
         this.idOfProduct = idOfProduct;
         this.nameOfProduct = nameOfProduct;

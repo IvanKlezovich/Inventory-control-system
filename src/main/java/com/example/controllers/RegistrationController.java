@@ -1,6 +1,5 @@
 package com.example.controllers;
 
-import java.io.IOException;
 import com.example.connection.DatabaseHandler;
 import com.example.main.CurseProject;
 import com.example.tables.User;
@@ -12,19 +11,14 @@ import javafx.scene.control.TextField;
 public class RegistrationController {
     CurseProject cp = new CurseProject();
     DatabaseHandler dh = new DatabaseHandler();
-
     @FXML
     private Button backButton;
-
     @FXML
     private TextField inputName;
-
     @FXML
     private PasswordField inputPassword;
-
     @FXML
     private Button regestrationButton;
-
     @FXML
     void initialize() {
         regestrationButton.setOnAction(actionEvent -> {
@@ -36,7 +30,7 @@ public class RegistrationController {
         });
         backButton.setOnAction(actionEvent -> {
             backButton.getScene().getWindow().hide();
-            cp.window("login.fxml", 720, 1280, "login");
+            cp.window("login.fxml", 720, 635, "login");
         });
     }
 }

@@ -2,12 +2,10 @@ package com.example.controllers;
 
 import com.example.connection.DatabaseHandler;
 import com.example.main.CurseProject;;
-
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 import com.example.tables.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,20 +17,16 @@ public class LoginController{
     CurseProject cp = new CurseProject();
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private TextField inputLogin;
-
     @FXML
     private PasswordField inputPassword;
     @FXML
     private Button loginButton;
     @FXML
     private Button regestrationButton;
-
     @FXML
     void initialize(){
         loginButton.setOnAction(actionEvent -> {
@@ -47,10 +41,9 @@ public class LoginController{
         });
         regestrationButton.setOnAction(actionEvent -> {
             regestrationButton.getScene().getWindow().hide();
-            cp.window("registration.fxml", 626, 1280, "registration");
+            cp.window("registration.fxml", 520, 480, "registration");
         });
     }
-
     private void singInNewUser(String logg, String pass) {
         DatabaseHandler dbHandler = new DatabaseHandler();
         User user = new User();
