@@ -50,6 +50,7 @@ public class ProductController {
         insertButton.setOnAction(actionEvent -> cp.window("addProduct.fxml", 300, 400, "addProduct"));
         deleteButton.setOnAction(actionEvent -> cp.window("deleteProduct.fxml", 148, 200, "delete"));
     }
+
     public void update(){
         productTable.getItems().clear();
         String update = "SELECT * FROM products";
@@ -73,7 +74,6 @@ public class ProductController {
 
         productTable.setItems(products);
     }
-    @SuppressWarnings("unchecked")
     private void initDate() {
 
         String query = "SELECT * FROM products";
@@ -109,7 +109,6 @@ public class ProductController {
 
         TableColumn<Product, String> description = new TableColumn<>("description");
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
-
         productTable.getColumns().addAll(idOfProduct, nameOfProduct,idOfEnum, countOfWare, description);
 
         productTable.setItems(products);

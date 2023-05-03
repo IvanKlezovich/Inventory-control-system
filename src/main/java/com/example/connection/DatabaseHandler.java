@@ -50,7 +50,6 @@ public class DatabaseHandler implements Const{
         }
 
     }
-
     public void addProduct(Product product){
         String insert = "INSERT " + Const.PRODUCTS_TABLE + "(" +
                 Const.NAME_PRODUCT + "," + Const.ID_ENUM + "," +
@@ -74,7 +73,6 @@ public class DatabaseHandler implements Const{
     }
     public void addOrder(Order order){}
     public void addUnits(Units units){}
-
     public void delProduct(int number){
         String delete = "DELETE FROM " + Const.PRODUCTS_TABLE +
                 " WHERE " + Const.ID_PRODUCT + " = " + number + ";";
