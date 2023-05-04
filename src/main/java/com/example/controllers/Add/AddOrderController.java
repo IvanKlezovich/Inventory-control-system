@@ -1,12 +1,13 @@
-package com.example.controllers;
+package com.example.controllers.Add;
 
 import com.example.connection.DatabaseHandler;
+import com.example.tables.Order;
 import com.example.tables.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class AddProviderController {
+public class AddOrderController {
     DatabaseHandler db = new DatabaseHandler();
     @FXML
     private Button AddButton;
@@ -25,8 +26,8 @@ public class AddProviderController {
             String idEnum = enumField.getText().trim();
             int count = Integer.parseInt(countField.getText().trim());
             String des = desField.getText().trim();
-            Product product = new Product(name, idEnum, count, des);
-            db.addProduct(product);
+            Order order = new Order();
+            db.addOrder(order);
         });
     }
 }

@@ -46,6 +46,13 @@ public class Order {
         this.deliveryTime = deliveryTime;
     }
     public Order() {}
+    public Order(int idProvider, int countOfProvider, int prise, int amountOfOrder, Time deliveryTime) {
+        this.idProvider = idProvider;
+        this.countOfProvider = countOfProvider;
+        this.prise = prise;
+        this.amountOfOrder = amountOfOrder;
+        this.deliveryTime = deliveryTime;
+    }
     public Order(int idOrder, int idProvider, int countOfProvider, int prise, int amountOfOrder, Time deliveryTime) {
         this.idOrder = idOrder;
         this.idProvider = idProvider;

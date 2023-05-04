@@ -44,7 +44,7 @@ public class ProductController {
         });
         OpenUnitsButton.setOnAction(actionEvent -> {
             OpenUnitsButton.getScene().getWindow().hide();
-            cp.window("units.fxml", 720, 1280, "units");
+            cp.window("units.fxml", 335, 335, "units");
         });
         updateButton.setOnAction(actionEvent -> update());
         insertButton.setOnAction(actionEvent -> cp.window("addProduct.fxml", 300, 400, "addProduct"));
@@ -73,7 +73,6 @@ public class ProductController {
 
         productTable.setItems(products);
     }
-    @SuppressWarnings("unchecked")
     private void initDate() {
 
         String query = "SELECT * FROM products";

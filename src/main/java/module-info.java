@@ -20,4 +20,8 @@ module com.example.curse {
     opens com.example.connection to javafx.fxml;
     exports com.example.tables;
     opens com.example.tables to javafx.fxml;
+    exports com.example.controllers.Add;
+    opens com.example.controllers.Add to javafx.fxml;
+    exports com.example.controllers.Delete;
+    opens com.example.controllers.Delete to javafx.fxml;
 }

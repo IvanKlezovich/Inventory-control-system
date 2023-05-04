@@ -50,7 +50,6 @@ public class DatabaseHandler implements Const{
         }
 
     }
-
     public void addProduct(Product product){
         String insert = "INSERT " + Const.PRODUCTS_TABLE + "(" +
                 Const.NAME_PRODUCT + "," + Const.ID_ENUM + "," +
@@ -70,11 +69,57 @@ public class DatabaseHandler implements Const{
         }
     }
     public void addProvider(Provider provider){
+        String insert = "INSERT " + Const.PRODUCTS_TABLE + "(" +
+                Const.PROVIDER_FIO + "," + Const.PROVIDER_NUMBER_PHONE + "," +
+                Const.PROVIDER_ADDRESS + "," + Const.PROVIDER_NUMBER_ACCOUNT + ")"
+                + "VALUES(?,?,?,?);";
+        try{
+            PreparedStatement psSt = getDbconnection().prepareStatement(insert);
+            psSt.setString(1, provider.getFIO());
+            psSt.setString(2, provider.getNumberPhone());
+            psSt.setString(3, provider.getAddress());
+            psSt.setInt(4, provider.getNumberOfAccount());
 
+            psSt.executeUpdate();
+            psSt.close();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
-    public void addOrder(Order order){}
-    public void addUnits(Units units){}
+    public void addOrder(Order order){
+        String insert = "INSERT " + Const.ORDER_TABLE + "(" +
+                Const.ID_ORDER + "," + Const.COUNT_ORDER + "," +
+                Const.ORDER_PRISE + "," + Const.AMOUNT_ORDER + ","
+                + Const.ORDER_DELIVERY_TIME + ")"
+                + "VALUES(?,?,?,?,?);";
+        try{
+            PreparedStatement psSt = getDbconnection().prepareStatement(insert);
+            psSt.setInt(1, order.getIdProvider());
+            psSt.setInt(2, order.getCountOfProvider());
+            psSt.setInt(3, order.getPrise());
+            psSt.setInt(4, order.getPrise());
+            psSt.setTime(5, order.getDeliveryTime());
 
+            psSt.executeUpdate();
+            psSt.close();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+    public void addUnits(Units units){
+        String insert = "INSERT " + Const.UNITS_TABLE + "(" +
+                Const.NAME_UNITS + ")"
+                + "VALUES(?);";
+        try{
+            PreparedStatement psSt = getDbconnection().prepareStatement(insert);
+            psSt.setString(1, units.getNameUnit());
+
+            psSt.executeUpdate();
+            psSt.close();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
     public void delProduct(int number){
         String delete = "DELETE FROM " + Const.PRODUCTS_TABLE +
                 " WHERE " + Const.ID_PRODUCT + " = " + number + ";";
@@ -86,7 +131,37 @@ public class DatabaseHandler implements Const{
             e.printStackTrace();
         }
     }
-    public void delProvider(int number){}
-    public void delOrder(int number){}
-    public void delUnits(int number){}
+    public void delProvider(int number){
+        String delete = "DELETE FROM " + Const.PROVIDER_TABLE +
+                " WHERE " + Const.ID_PROVIDER + " = " + number + ";";
+        try {
+            PreparedStatement ps = getDbconnection().prepareStatement(delete);
+            ps.executeUpdate();
+            ps.close();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+    public void delOrder(int number){
+        String delete = "DELETE FROM " + Const.ORDER_TABLE +
+                " WHERE " + Const.ID_ORDER + " = " + number + ";";
+        try {
+            PreparedStatement ps = getDbconnection().prepareStatement(delete);
+            ps.executeUpdate();
+            ps.close();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+    public void delUnits(int number){
+        String delete = "DELETE FROM " + Const.UNITS_TABLE +
+                " WHERE " + Const.ID_UNITS  + " = " + number + ";";
+        try {
+            PreparedStatement ps = getDbconnection().prepareStatement(delete);
+            ps.executeUpdate();
+            ps.close();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 }

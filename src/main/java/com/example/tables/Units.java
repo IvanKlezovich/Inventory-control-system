@@ -16,6 +16,10 @@ public class Units{
         this.nameUnit = nameUnit;
     }
     public Units() {}
+
+    public Units(String nameUnit){
+        this.nameUnit = nameUnit;
+    }
     public Units(int idOfUnit, String nameUnit) {
         this.idOfUnit = idOfUnit;
         this.nameUnit = nameUnit;

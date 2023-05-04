@@ -8,12 +8,12 @@ public interface Const {
     String dbName = "Curse";
 
     String ORDER_TABLE = "order";
-    String  ID_ORDER = "idoOrder";
+    String  ID_ORDER = "idOfOrder";
     String  ID_PROVIDER = "idProvider";
     String COUNT_ORDER = "countOfOrder";
-    String PRISE = "prise";
+    String ORDER_PRISE = "prise";
     String AMOUNT_ORDER = "amountOfOrder";
-    String DELIVERY_TIME = "deliveryTime";
+    String ORDER_DELIVERY_TIME = "deliveryTime";
 
     String PRODUCTS_TABLE = "products";
     String ID_PRODUCT = "idOfProduct";
@@ -23,17 +23,17 @@ public interface Const {
     String DESCRIPTION = "description";
 
     String PROVIDER_TABLE = "provider";
-    String FIO = "FIO";
-    String NUMBER_PHONE = "numberPhone";
-    String ADDRESS = "address";
-    String NUMBER_ACCOUNT = "numberOfAccount";
+    String PROVIDER_ID = "idProvider";
+    String PROVIDER_FIO = "FIO";
+    String PROVIDER_NUMBER_PHONE = "numberOfPhone";
+    String PROVIDER_ADDRESS = "address";
+    String PROVIDER_NUMBER_ACCOUNT = "numberOfAccount";
 
     String UNITS_TABLE = "units";
-    String ID_UNITS = "idunits";
-    String UNITS = "unit";
+    String ID_UNITS = "idOfUnits";
+    String NAME_UNITS = "nameUnit";
 
     String USER_TABLE = "user";
-    String ID_USER = "iduser";
     String USER_NAME = "userName";
     String USER_PASSWORD = "userPassword";
 }

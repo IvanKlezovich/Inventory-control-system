@@ -37,6 +37,12 @@ public class Provider {
         this.numberOfAccount = numberOfAccount;
     }
     public Provider() {}
+    public Provider(String FIO, String numberPhone, String address, int numberOfAccount){
+        this.FIO = FIO;
+        this.numberPhone = numberPhone;
+        this.address = address;
+        this.numberOfAccount = numberOfAccount;
+    }
     public Provider(int idProvider, String FIO, String numberPhone, String address, int numberOfAccount) {
         this.idProvider = idProvider;
         this.FIO = FIO;
