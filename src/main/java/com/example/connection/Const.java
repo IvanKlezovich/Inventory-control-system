@@ -4,8 +4,8 @@ public interface Const {
     String dbHost = "localhost";
     String dbPort = "3306";
     String dbUser = "admin";
-    String dbPass = "123456";
-    String dbName = "Curse";
+    String dbPass = "12345";
+    String dbName = "curse";
 
     String ORDER_TABLE = "order";
     String  ID_ORDER = "idOfOrder";
