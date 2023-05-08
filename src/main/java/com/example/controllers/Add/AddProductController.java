@@ -7,7 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-
 import java.util.regex.Pattern;
 
 public class AddProductController {
@@ -27,7 +26,7 @@ public class AddProductController {
         AddButton.setOnAction(actionEvent -> {
             boolean sate = true;
             String name = null;
-            String idEnum = null;
+            int idEnum = 0;
             String des = null;
             int count = 0;
             try {
@@ -44,8 +43,8 @@ public class AddProductController {
                         }
                     });
                 }
-                if (Pattern.matches("\\w+", enumField.getText().trim())) {
-                    idEnum = enumField.getText().trim();
+                if (Pattern.matches("\\d+", enumField.getText().trim())) {
+                    idEnum = Integer.parseInt(enumField.getText().trim());
                 } else {
                     sate = false;
                     Alert alert = new Alert(Alert.AlertType.ERROR);

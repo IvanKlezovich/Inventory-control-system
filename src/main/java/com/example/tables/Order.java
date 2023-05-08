@@ -1,14 +1,19 @@
 package com.example.tables;
 
-import java.sql.Time;
-
 public class Order {
     private int idOrder;
     private int idProvider;
-    private int countOfProvider;
+    private int idProduct;
     private int prise;
     private int amountOfOrder;
-    private Time deliveryTime;
+    private String deliveryTime;
+    public int getIdProduct() {
+        return idProduct;
+    }
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
+    }
+
     public int getIdOrder() {
         return idOrder;
     }
@@ -20,12 +25,6 @@ public class Order {
     }
     public void setIdProvider(int idProvider) {
         this.idProvider = idProvider;
-    }
-    public int getCountOfProvider() {
-        return countOfProvider;
-    }
-    public void setCountOfProvider(int countOfProvider) {
-        this.countOfProvider = countOfProvider;
     }
     public int getPrise() {
         return prise;
@@ -39,24 +38,24 @@ public class Order {
     public void setAmountOfOrder(int amountOfOrder) {
         this.amountOfOrder = amountOfOrder;
     }
-    public Time getDeliveryTime() {
+    public String getDeliveryTime() {
         return deliveryTime;
     }
-    public void setDeliveryTime(Time deliveryTime) {
+    public void setDeliveryTime(String deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
     public Order() {}
-    public Order(int idProvider, int countOfProvider, int prise, int amountOfOrder, Time deliveryTime) {
+    public Order(int idProvider, int idProduct, int prise, int amountOfOrder, String deliveryTime) {
         this.idProvider = idProvider;
-        this.countOfProvider = countOfProvider;
+        this.idProduct = idProduct;
         this.prise = prise;
         this.amountOfOrder = amountOfOrder;
         this.deliveryTime = deliveryTime;
     }
-    public Order(int idOrder, int idProvider, int countOfProvider, int prise, int amountOfOrder, Time deliveryTime) {
+    public Order(int idOrder, int idProvider, int idProduct, int prise, int amountOfOrder, String deliveryTime) {
         this.idOrder = idOrder;
         this.idProvider = idProvider;
-        this.countOfProvider = countOfProvider;
+        this.idProduct = idProduct;
         this.prise = prise;
         this.amountOfOrder = amountOfOrder;
         this.deliveryTime = deliveryTime;

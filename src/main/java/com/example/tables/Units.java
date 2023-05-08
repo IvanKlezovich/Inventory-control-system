@@ -1,13 +1,13 @@
 package com.example.tables;
 
 public class Units{
-    private int idOfUnit;
+    private int idUnit;
     private String nameUnit;
-    public int getIdOfUnit() {
-        return idOfUnit;
+    public int getIdUnit() {
+        return idUnit;
     }
-    public void setIdOfUnit(int idOfUnit) {
-        this.idOfUnit = idOfUnit;
+    public void setIdUnit(int idUnit) {
+        this.idUnit = idUnit;
     }
     public String getNameUnit() {
         return nameUnit;
@@ -20,8 +20,8 @@ public class Units{
     public Units(String nameUnit){
         this.nameUnit = nameUnit;
     }
-    public Units(int idOfUnit, String nameUnit) {
-        this.idOfUnit = idOfUnit;
+    public Units(int idUnit, String nameUnit) {
+        this.idUnit = idUnit;
         this.nameUnit = nameUnit;
     }
 }

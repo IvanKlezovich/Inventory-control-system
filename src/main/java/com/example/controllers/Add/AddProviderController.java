@@ -31,7 +31,7 @@ public class AddProviderController {
             String add = null;
             int numberOfAcc = 0;
             try {
-                if (Pattern.matches("\\w+", FIOField.getText().trim())) {
+                if (Pattern.matches("\\w+\\s\\w+", FIOField.getText().trim())) {
                     FIO = FIOField.getText().trim();
                 }
                 else {
@@ -45,7 +45,7 @@ public class AddProviderController {
                         }
                     });
                 }
-                if (Pattern.matches("\\w+", numPhoField.getText().trim())) {
+                if (Pattern.matches("\\+\\d{1,3}\\d{2}\\d{1,7}", numPhoField.getText().trim())) {
                     numberPhone = numPhoField.getText().trim();
                 }
                 else {
@@ -59,7 +59,7 @@ public class AddProviderController {
                         }
                     });
                 }
-                if(Pattern.matches("\\w+", addField.getText().trim())){
+                if(Pattern.matches("\\w+\\s\\d{1,3}", addField.getText().trim())){
                     add = addField.getText().trim();
                 }
                 else {
@@ -73,7 +73,7 @@ public class AddProviderController {
                         }
                     });
                 }
-                if (Pattern.matches("\\w+", numAccField.getText().trim())) {
+                if (Pattern.matches("\\d+", numAccField.getText().trim())) {
                     numberOfAcc = Integer.parseInt(numAccField.getText().trim());
                 }
                 else {

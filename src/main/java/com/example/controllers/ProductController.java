@@ -44,7 +44,7 @@ public class ProductController {
         });
         OpenProviderButton.setOnAction(actionEvent -> {
             OpenProviderButton.getScene().getWindow().hide();
-            cp.window("provider.fxml", 720, 1280, "provider");
+            cp.window("provider.fxml", 719, 720, "provider");
         });
         OpenUnitsButton.setOnAction(actionEvent -> {
             OpenUnitsButton.getScene().getWindow().hide();
@@ -53,35 +53,37 @@ public class ProductController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             FilteredList<Product> searchProduct = new FilteredList<>(products);
             System.out.println(searchField.getText().trim());
-            searchProduct.addAll(products);
             searchProduct.setPredicate(product -> {
                if(newValue == null || newValue.isEmpty()){
                    return true;
                }
                String lowerCase = newValue.toLowerCase();
-
-               if(product.getIdOfProduct())
+               if(product.getNameProduct().toLowerCase().contains(lowerCase)){return true;}
+               else if (String.valueOf(product.getIdProduct()).contains(lowerCase)) {return true;}
+               else if (String.valueOf(product.getIdUnits()).contains(lowerCase)) {return true;}
+               else if (String.valueOf(product.getCountWare()).contains(lowerCase)) {return true;}
+               else return product.getDescription().toLowerCase().contains(lowerCase);
             });
-            productTable.setItems();
+            productTable.setItems(searchProduct);
         });
         updateButton.setOnAction(actionEvent -> update());
         insertButton.setOnAction(actionEvent -> cp.window("addProduct.fxml", 300, 400, "addProduct"));
         deleteButton.setOnAction(actionEvent -> cp.window("deleteProduct.fxml", 148, 200, "delete"));
     }
     public void update(){
-        productTable.getItems().clear();
+        products.clear();
         String update = "SELECT * FROM products";
 
         try{
             ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
             while (rs.next()){
-                int id = rs.getInt("idOfProduct");
-                String name = rs.getString("nameOfProduct");
-                String idEnum = rs.getString("idOfEnum");
-                int count = rs.getInt("countOfWare");
+                int id = rs.getInt("idProduct");
+                String name = rs.getString("nameProduct");
+                int idOfUnits = rs.getInt("idUnits");
+                int count = rs.getInt("countWare");
                 String des = rs.getString("description");
 
-                Product product = new Product(id, name, idEnum, count, des);
+                Product product = new Product(id, name, idOfUnits, count, des);
                 products.add(product);
             }
             rs.close();
@@ -98,13 +100,13 @@ public class ProductController {
         try{
             ResultSet rs = db.getDbconnection().createStatement().executeQuery(query);
             while (rs.next()){
-                int id = rs.getInt("idOfProduct");
-                String name = rs.getString("nameOfProduct");
-                String idEnum = rs.getString("idOfEnum");
-                int count = rs.getInt("countOfWare");
+                int id = rs.getInt("idProduct");
+                String name = rs.getString("nameProduct");
+                int idOfUnits = rs.getInt("idUnits");
+                int count = rs.getInt("countWare");
                 String des = rs.getString("description");
 
-                Product product = new Product(id, name, idEnum, count, des);
+                Product product = new Product(id, name, idOfUnits, count, des);
                 products.add(product);
             }
             rs.close();
@@ -112,22 +114,22 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        TableColumn<Product, Integer> idOfProduct = new TableColumn<>("Id_product");
-        idOfProduct.setCellValueFactory(new PropertyValueFactory<>("idOfProduct"));
+        TableColumn<Product, Integer> idProduct = new TableColumn<>("Id_product");
+        idProduct.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
 
-        TableColumn<Product, String> nameOfProduct = new TableColumn<>("name_Product");
-        nameOfProduct.setCellValueFactory(new PropertyValueFactory<>("nameOfProduct"));
+        TableColumn<Product, String> nameProduct = new TableColumn<>("name_Product");
+        nameProduct.setCellValueFactory(new PropertyValueFactory<>("nameProduct"));
 
-        TableColumn<Product, String> idOfEnum = new TableColumn<>("Id_Enum");
-        idOfEnum.setCellValueFactory(new PropertyValueFactory<>("idOfEnum"));
+        TableColumn<Product, Integer> idUnits = new TableColumn<>("Id_Unit");
+        idUnits.setCellValueFactory(new PropertyValueFactory<>("idUnits"));
 
-        TableColumn<Product, Integer> countOfWare = new TableColumn<>("count_ware");
-        countOfWare.setCellValueFactory(new PropertyValueFactory<>("countOfWare"));
+        TableColumn<Product, Integer> countWare = new TableColumn<>("count_ware");
+        countWare.setCellValueFactory(new PropertyValueFactory<>("countWare"));
 
         TableColumn<Product, String> description = new TableColumn<>("description");
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        productTable.getColumns().addAll(idOfProduct, nameOfProduct,idOfEnum, countOfWare, description);
+        productTable.getColumns().addAll(idProduct, nameProduct, idUnits, countWare, description);
 
         productTable.setItems(products);
     }

@@ -6,10 +6,12 @@ import com.example.main.CurseProject;
 import com.example.tables.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,31 +32,50 @@ public class OrderController {
     @FXML
     private Button updateButton;
     @FXML
+    private TextField searchField;
+    @FXML
     void initialize(){
         initDate();
         CloseOrderButton.setOnAction(actionEvent -> {
             CloseOrderButton.getScene().getWindow().hide();
             cp.window("product.fxml", 720, 635, "product");
         });
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            FilteredList<Order> searchOrder = new FilteredList<>(orders);
+            System.out.println(searchField.getText().trim());
+            searchOrder.setPredicate(order -> {
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerCase = newValue.toLowerCase();
+                if(String.valueOf(order.getIdOrder()).contains(lowerCase)) return true;
+                else if (String.valueOf(order.getAmountOfOrder()).contains(lowerCase)) return true;
+                else if(String.valueOf(order.getPrise()).contains(lowerCase)) return true;
+                else if(String.valueOf(order.getIdProvider()).contains(lowerCase)) return true;
+                else if(String.valueOf(order.getIdProduct()).contains(lowerCase)) return true;
+                else return order.getDeliveryTime().toLowerCase().contains(lowerCase);
+                });
+            orderTable.setItems(searchOrder);
+        });
         updateButton.setOnAction(actionEvent -> update());
         insertButton.setOnAction(actionEvent -> cp.window("addOrder.fxml", 300, 400, "add"));
         deleteButton.setOnAction(actionEvent -> cp.window("deleteOrder.fxml", 148, 200, "delete"));
     }
     public void update(){
-        orderTable.getItems().clear();
+        orders.clear();
         String query = "SELECT * FROM " + Const.ORDER_TABLE + ";";
 
         try{
             ResultSet rs = db.getDbconnection().createStatement().executeQuery(query);
             while (rs.next()){
-                int idOrder = rs.getInt(Const.ID_ORDER);
-                int idProvider = rs.getInt(Const.ID_PROVIDER);
-                int countOfProvider = rs.getInt(Const.COUNT_ORDER);
+                int idOrder = rs.getInt(Const.ORDER_ID);
+                int idProvider = rs.getInt(Const.PROVIDER_ID);
+                int idProduct = rs.getInt(Const.PRODUCT_ID);
                 int prise = rs.getInt(Const.ORDER_PRISE);
-                int amountOfOrder = rs.getInt(Const.AMOUNT_ORDER);
-                Time deliveryTime = rs.getTime(Const.ORDER_DELIVERY_TIME);
+                int amountOfOrder = rs.getInt(Const.ORDER_AMOUNT);
+                String deliveryTime = rs.getString(Const.ORDER_DELIVERY_TIME);
 
-                Order order = new Order(idOrder, idProvider, countOfProvider, prise, amountOfOrder,deliveryTime);
+                Order order = new Order(idOrder, idProvider, idProduct, prise, amountOfOrder,deliveryTime);
                 orders.add(order);
             }
             rs.close();
@@ -66,19 +87,19 @@ public class OrderController {
     }
     public void initDate() {
 
-        String query = "SELECT * FROM order;";
+        String query = "SELECT * FROM "+ Const.ORDER_TABLE +";";
 
         try{
             ResultSet rs = db.getDbconnection().createStatement().executeQuery(query);
             while (rs.next()){
-                int idOrder = rs.getInt(Const.ID_ORDER);
-                int idProvider = rs.getInt(Const.ID_PROVIDER);
-                int countOfProvider = rs.getInt(Const.COUNT_ORDER);
+                int idOrder = rs.getInt(Const.ORDER_ID);
+                int idProvider = rs.getInt(Const.PROVIDER_ID);
+                int idProduct = rs.getInt(Const.PRODUCT_ID);
                 int prise = rs.getInt(Const.ORDER_PRISE);
-                int amountOfOrder = rs.getInt(Const.AMOUNT_ORDER);
-                Time deliveryTime = rs.getTime(Const.ORDER_DELIVERY_TIME);
+                int amountOfOrder = rs.getInt(Const.ORDER_AMOUNT);
+                String deliveryTime = rs.getString(Const.ORDER_DELIVERY_TIME);
 
-                Order order = new Order(idOrder, idProvider, countOfProvider, prise, amountOfOrder,deliveryTime);
+                Order order = new Order(idOrder, idProvider, idProduct, prise, amountOfOrder,deliveryTime);
                 orders.add(order);
             }
             rs.close();
@@ -92,8 +113,8 @@ public class OrderController {
         TableColumn<Order, Integer> idProvider = new TableColumn<>("Id_provider");
         idProvider.setCellValueFactory(new PropertyValueFactory<>("idProvider"));
 
-        TableColumn<Order, Integer> countOfProvider = new TableColumn<>("Count");
-        countOfProvider.setCellValueFactory(new PropertyValueFactory<>("countOfProvider"));
+        TableColumn<Order, Integer> idProduct = new TableColumn<>("id_product");
+        idProduct.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
 
         TableColumn<Order, Integer> prise = new TableColumn<>("prise");
         prise.setCellValueFactory(new PropertyValueFactory<>("prise"));
@@ -104,7 +125,7 @@ public class OrderController {
         TableColumn<Order, Time> deliveryTime = new TableColumn<>("delivery");
         deliveryTime.setCellValueFactory(new PropertyValueFactory<>("deliveryTime"));
 
-        orderTable.getColumns().addAll(idOrder, idProvider, countOfProvider, prise, amountOfOrder, deliveryTime);
+        orderTable.getColumns().addAll(idOrder, idProvider, idProduct, prise, amountOfOrder, deliveryTime);
 
         orderTable.setItems(orders);
     }

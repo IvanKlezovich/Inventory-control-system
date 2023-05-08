@@ -14,19 +14,22 @@ public class AddOrderController {
     @FXML
     private TextField countField;
     @FXML
-    private TextField desField;
+    private TextField delField;
     @FXML
-    private TextField enumField;
+    private TextField idProdField;
     @FXML
-    private TextField nameField;
+    private TextField idProvField;
+    @FXML
+    private TextField priseField;
     @FXML
     public void initialize(){
         AddButton.setOnAction(actionEvent -> {
-            String name = nameField.getText().trim();
-            String idEnum = enumField.getText().trim();
-            int count = Integer.parseInt(countField.getText().trim());
-            String des = desField.getText().trim();
-            Order order = new Order();
+            int idProvider = Integer.parseInt(idProvField.getText().trim());;
+            int prise = Integer.parseInt(priseField.getText().trim());;
+            int amountOfOrder = Integer.parseInt(countField.getText().trim());;
+            int idProduct = Integer.parseInt(idProdField.getText().trim());
+            String del = delField.getText().trim();
+            Order order = new Order(idProvider, idProduct, prise, amountOfOrder, del);
             db.addOrder(order);
         });
     }

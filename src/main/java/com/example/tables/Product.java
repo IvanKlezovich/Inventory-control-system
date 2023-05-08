@@ -1,34 +1,34 @@
 package com.example.tables;
 
 public class Product {
-    private int idOfProduct;
-    private String nameOfProduct;
-    private String idOfEnum;
-    private int countOfWare;
+    private int idProduct;
+    private String nameProduct;
+    private int idUnits;
+    private int countWare;
     private String description;
-    public int getIdOfProduct() {
-        return idOfProduct;
+    public int getIdProduct() {
+        return idProduct;
     }
-    public void setIdOfProduct(int idOfProduct) {
-        this.idOfProduct = idOfProduct;
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
     }
-    public String getNameOfProduct() {
-        return nameOfProduct;
+    public String getNameProduct() {
+        return nameProduct;
     }
-    public void setNameOfProduct(String nameOfProduct) {
-        this.nameOfProduct = nameOfProduct;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
-    public String getIdOfEnum() {
-        return idOfEnum;
+    public int getIdUnits() {
+        return idUnits;
     }
-    public void setIdOfEnum(String idOfEnum) {
-        this.idOfEnum = idOfEnum;
+    public void setIdUnits(int idUnits) {
+        this.idUnits = idUnits;
     }
-    public int getCountOfWare() {
-        return countOfWare;
+    public int getCountWare() {
+        return countWare;
     }
-    public void setCountOfWare(int countOfWare) {
-        this.countOfWare = countOfWare;
+    public void setCountWare(int countWare) {
+        this.countWare = countWare;
     }
     public String getDescription() {
         return description;
@@ -39,25 +39,25 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "idOfProduct=" + idOfProduct +
-                ", nameOfProduct='" + nameOfProduct + '\'' +
-                ", idOfEnum='" + idOfEnum + '\'' +
-                ", countOfWare=" + countOfWare +
+                "idProduct=" + idProduct +
+                ", nameProduct='" + nameProduct + '\'' +
+                ", idUnits='" + idUnits + '\'' +
+                ", countWare=" + countWare +
                 ", description='" + description + '\'' +
                 '}';
     }
     public Product() {}
-    public Product(String nameOfProduct, String idOfEnum, int countOfWare, String description) {
-        this.nameOfProduct = nameOfProduct;
-        this.idOfEnum = idOfEnum;
-        this.countOfWare = countOfWare;
+    public Product(String nameProduct, int idUnits, int countWare, String description) {
+        this.nameProduct = nameProduct;
+        this.idUnits = idUnits;
+        this.countWare = countWare;
         this.description = description;
     }
-    public Product(int idOfProduct, String nameOfProduct, String idOfEnum, int countOfWare, String description) {
-        this.idOfProduct = idOfProduct;
-        this.nameOfProduct = nameOfProduct;
-        this.idOfEnum = idOfEnum;
-        this.countOfWare = countOfWare;
+    public Product(int idProduct, String nameProduct, int idUnits, int countWare, String description) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
+        this.idUnits = idUnits;
+        this.countWare = countWare;
         this.description = description;
     }
 }

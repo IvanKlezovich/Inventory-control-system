@@ -1,7 +1,11 @@
 package com.example.connection;
 
 import com.example.tables.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DatabaseHandler implements Const{
     Connection dbconnection;
@@ -13,7 +17,6 @@ public class DatabaseHandler implements Const{
                 dbUser, dbPass);
         return dbconnection;
     }
-
     public ResultSet getUser(User user){
         ResultSet resultSet = null;
 
@@ -52,14 +55,14 @@ public class DatabaseHandler implements Const{
     }
     public void addProduct(Product product){
         String insert = "INSERT " + Const.PRODUCTS_TABLE + "(" +
-                Const.NAME_PRODUCT + "," + Const.ID_ENUM + "," +
-                Const.COUNT_WARE + "," + Const.DESCRIPTION + ")"
+                Const.PRODUCT_NAME + "," + Const.UNITS_ID + "," +
+                Const.PRODUCT_COUNT_WARE + "," + Const.PRODUCT_DESCRIPTION + ")"
                 + "VALUES(?,?,?,?);";
         try{
             PreparedStatement psSt = getDbconnection().prepareStatement(insert);
-            psSt.setString(1, product.getNameOfProduct());
-            psSt.setString(2, product.getIdOfEnum());
-            psSt.setInt(3, product.getCountOfWare());
+            psSt.setString(1, product.getNameProduct());
+            psSt.setInt(2, product.getIdUnits());
+            psSt.setInt(3, product.getCountWare());
             psSt.setString(4, product.getDescription());
 
             psSt.executeUpdate();
@@ -69,7 +72,7 @@ public class DatabaseHandler implements Const{
         }
     }
     public void addProvider(Provider provider){
-        String insert = "INSERT " + Const.PRODUCTS_TABLE + "(" +
+        String insert = "INSERT " + Const.PROVIDER_TABLE + "(" +
                 Const.PROVIDER_FIO + "," + Const.PROVIDER_NUMBER_PHONE + "," +
                 Const.PROVIDER_ADDRESS + "," + Const.PROVIDER_NUMBER_ACCOUNT + ")"
                 + "VALUES(?,?,?,?);";
@@ -88,17 +91,17 @@ public class DatabaseHandler implements Const{
     }
     public void addOrder(Order order){
         String insert = "INSERT " + Const.ORDER_TABLE + "(" +
-                Const.ID_ORDER + "," + Const.COUNT_ORDER + "," +
-                Const.ORDER_PRISE + "," + Const.AMOUNT_ORDER + ","
+                Const.PROVIDER_ID + "," + Const.PRODUCT_ID + "," +
+                Const.ORDER_PRISE + "," + Const.ORDER_AMOUNT + ","
                 + Const.ORDER_DELIVERY_TIME + ")"
                 + "VALUES(?,?,?,?,?);";
         try{
             PreparedStatement psSt = getDbconnection().prepareStatement(insert);
             psSt.setInt(1, order.getIdProvider());
-            psSt.setInt(2, order.getCountOfProvider());
+            psSt.setInt(2, order.getIdProduct());
             psSt.setInt(3, order.getPrise());
-            psSt.setInt(4, order.getPrise());
-            psSt.setTime(5, order.getDeliveryTime());
+            psSt.setInt(4, order.getAmountOfOrder());
+            psSt.setString(5, order.getDeliveryTime());
 
             psSt.executeUpdate();
             psSt.close();
@@ -108,7 +111,7 @@ public class DatabaseHandler implements Const{
     }
     public void addUnits(Units units){
         String insert = "INSERT " + Const.UNITS_TABLE + "(" +
-                Const.NAME_UNITS + ")"
+                Const.UNITS_UNITS + ")"
                 + "VALUES(?);";
         try{
             PreparedStatement psSt = getDbconnection().prepareStatement(insert);
@@ -122,7 +125,7 @@ public class DatabaseHandler implements Const{
     }
     public void delProduct(int number){
         String delete = "DELETE FROM " + Const.PRODUCTS_TABLE +
-                " WHERE " + Const.ID_PRODUCT + " = " + number + ";";
+                " WHERE " + Const.PRODUCT_ID + " = " + number + ";";
         try {
             PreparedStatement ps = getDbconnection().prepareStatement(delete);
             ps.executeUpdate();
@@ -133,7 +136,7 @@ public class DatabaseHandler implements Const{
     }
     public void delProvider(int number){
         String delete = "DELETE FROM " + Const.PROVIDER_TABLE +
-                " WHERE " + Const.ID_PROVIDER + " = " + number + ";";
+                " WHERE " + Const.PROVIDER_ID + " = " + number + ";";
         try {
             PreparedStatement ps = getDbconnection().prepareStatement(delete);
             ps.executeUpdate();
@@ -144,7 +147,7 @@ public class DatabaseHandler implements Const{
     }
     public void delOrder(int number){
         String delete = "DELETE FROM " + Const.ORDER_TABLE +
-                " WHERE " + Const.ID_ORDER + " = " + number + ";";
+                " WHERE " + Const.ORDER_ID + " = " + number + ";";
         try {
             PreparedStatement ps = getDbconnection().prepareStatement(delete);
             ps.executeUpdate();
@@ -155,7 +158,7 @@ public class DatabaseHandler implements Const{
     }
     public void delUnits(int number){
         String delete = "DELETE FROM " + Const.UNITS_TABLE +
-                " WHERE " + Const.ID_UNITS  + " = " + number + ";";
+                " WHERE " + Const.UNITS_ID + " = " + number + ";";
         try {
             PreparedStatement ps = getDbconnection().prepareStatement(delete);
             ps.executeUpdate();
