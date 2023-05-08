@@ -28,7 +28,7 @@ public interface Const {
 
     String UNITS_TABLE = "units";
     String UNITS_ID = "idUnits";
-    String UNITS_UNITS = "nameUnits";
+    String UNITS_NAME = "nameUnits";
 
     String USER_TABLE = "user";
     String USER_NAME = "userName";

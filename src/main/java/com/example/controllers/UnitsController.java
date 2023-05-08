@@ -62,7 +62,7 @@ public class UnitsController implements Const {
             ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
             while (rs.next()){
                 int id = rs.getInt(Const.UNITS_ID);
-                String name = rs.getString(Const.UNITS_UNITS);
+                String name = rs.getString(Const.UNITS_NAME);
 
                 Units unit = new Units(id, name);
                 units.add(unit);
@@ -82,7 +82,7 @@ public class UnitsController implements Const {
             ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
             while (rs.next()){
                 int id = rs.getInt(Const.UNITS_ID);
-                String name = rs.getString(Const.UNITS_UNITS);
+                String name = rs.getString(Const.UNITS_NAME);
 
                 Units unit = new Units(id, name);
                 units.add(unit);

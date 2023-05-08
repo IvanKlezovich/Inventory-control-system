@@ -5,7 +5,7 @@ public class Provider {
     private String FIO;
     private String numberPhone;
     private String address;
-    private int numberOfAccount;
+    private int numberAccount;
     public int getIdProvider() {
         return idProvider;
     }
@@ -30,24 +30,24 @@ public class Provider {
     public void setAddress(String address) {
         this.address = address;
     }
-    public int getNumberOfAccount() {
-        return numberOfAccount;
+    public int getNumberAccount() {
+        return numberAccount;
     }
-    public void setNumberOfAccount(int numberOfAccount) {
-        this.numberOfAccount = numberOfAccount;
+    public void setNumberAccount(int numberAccount) {
+        this.numberAccount = numberAccount;
     }
     public Provider() {}
-    public Provider(String FIO, String numberPhone, String address, int numberOfAccount){
+    public Provider(String FIO, String numberPhone, String address, int numberAccount){
         this.FIO = FIO;
         this.numberPhone = numberPhone;
         this.address = address;
-        this.numberOfAccount = numberOfAccount;
+        this.numberAccount = numberAccount;
     }
-    public Provider(int idProvider, String FIO, String numberPhone, String address, int numberOfAccount) {
+    public Provider(int idProvider, String FIO, String numberPhone, String address, int numberAccount) {
         this.idProvider = idProvider;
         this.FIO = FIO;
         this.numberPhone = numberPhone;
         this.address = address;
-        this.numberOfAccount = numberOfAccount;
+        this.numberAccount = numberAccount;
     }
 }

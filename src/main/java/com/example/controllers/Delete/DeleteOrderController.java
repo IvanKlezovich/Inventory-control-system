@@ -21,7 +21,7 @@ public class DeleteOrderController {
             int code = 0;
             if(Pattern.matches("\\d+", codeField.getText().trim())){
                 code = Integer.parseInt(codeField.getText().trim());
-                db.delUnits(code);
+                db.delOrder(code);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("Все прошло успешно");

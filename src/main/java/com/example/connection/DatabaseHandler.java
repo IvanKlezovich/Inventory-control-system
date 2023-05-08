@@ -81,7 +81,7 @@ public class DatabaseHandler implements Const{
             psSt.setString(1, provider.getFIO());
             psSt.setString(2, provider.getNumberPhone());
             psSt.setString(3, provider.getAddress());
-            psSt.setInt(4, provider.getNumberOfAccount());
+            psSt.setInt(4, provider.getNumberAccount());
 
             psSt.executeUpdate();
             psSt.close();
@@ -111,7 +111,7 @@ public class DatabaseHandler implements Const{
     }
     public void addUnits(Units units){
         String insert = "INSERT " + Const.UNITS_TABLE + "(" +
-                Const.UNITS_UNITS + ")"
+                Const.UNITS_NAME + ")"
                 + "VALUES(?);";
         try{
             PreparedStatement psSt = getDbconnection().prepareStatement(insert);
