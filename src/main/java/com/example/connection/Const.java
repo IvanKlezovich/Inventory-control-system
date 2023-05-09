@@ -33,4 +33,5 @@ public interface Const {
     String USER_TABLE = "user";
     String USER_NAME = "userName";
     String USER_PASSWORD = "userPassword";
+    String USER_AUTHORIZATION = "userAuth";
 }

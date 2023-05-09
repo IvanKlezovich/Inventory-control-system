@@ -30,7 +30,7 @@ public class RegistrationController {
         });
         backButton.setOnAction(actionEvent -> {
             backButton.getScene().getWindow().hide();
-            cp.window("login.fxml", 720, 635, "login");
+            cp.window("login.fxml", 360, 520, "login");
         });
     }
 }

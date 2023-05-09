@@ -4,7 +4,6 @@ import com.example.tables.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseHandler implements Const{
@@ -16,25 +15,6 @@ public class DatabaseHandler implements Const{
         dbconnection = DriverManager.getConnection(connectionString,
                 dbUser, dbPass);
         return dbconnection;
-    }
-    public ResultSet getUser(User user){
-        ResultSet resultSet = null;
-
-        String select = "SELECT * FROM " + Const.USER_TABLE +
-                " WHERE " + Const.USER_NAME +  "=? AND " +
-                Const.USER_PASSWORD + "=?";
-        try {
-            PreparedStatement psSt =
-                    getDbconnection().prepareStatement(select);
-            psSt.setString(1, user.getName());
-            psSt.setString(2, user.getPassword());
-
-            resultSet = psSt.executeQuery();
-            psSt.close();
-        } catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
-        return resultSet;
     }
     public void singUpUser(User user){
         String insert = "INSERT " + Const.USER_TABLE + "("

@@ -23,8 +23,8 @@ public class CurseProject extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                CurseProject.class.getResource("product.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 635, 720);
+                CurseProject.class.getResource("login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 520, 360);
         stage.setTitle("Curse  Project");
         stage.setScene(scene);
         stage.show();

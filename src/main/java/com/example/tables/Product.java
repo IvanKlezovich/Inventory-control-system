@@ -36,16 +36,7 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
-    @Override
-    public String toString() {
-        return "Product{" +
-                "idProduct=" + idProduct +
-                ", nameProduct='" + nameProduct + '\'' +
-                ", idUnits='" + idUnits + '\'' +
-                ", countWare=" + countWare +
-                ", description='" + description + '\'' +
-                '}';
-    }
+
     public Product() {}
     public Product(String nameProduct, int idUnits, int countWare, String description) {
         this.nameProduct = nameProduct;

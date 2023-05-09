@@ -12,7 +12,7 @@ public class ErrorController {
     void initialize() {
         errorButton.setOnAction(actionEvent -> {
             errorButton.getScene().getWindow().hide();
-            cp.window("registration.fxml", 360, 720, "registration");
+            cp.window("registration.fxml", 360, 520, "registration");
         });
 
     }

@@ -1,12 +1,10 @@
 package com.example.controllers;
 
+import com.example.connection.Const;
 import com.example.connection.DatabaseHandler;
-import com.example.main.CurseProject;;
-import java.net.URL;
+import com.example.main.CurseProject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
-import com.example.tables.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -14,10 +12,6 @@ import javafx.scene.control.TextField;
 
 public class LoginController{
     CurseProject cp = new CurseProject();
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
     @FXML
     private TextField inputLogin;
     @FXML
@@ -40,30 +34,27 @@ public class LoginController{
         });
         regestrationButton.setOnAction(actionEvent -> {
             regestrationButton.getScene().getWindow().hide();
-            cp.window("registration.fxml", 520, 480, "registration");
+            cp.window("registration.fxml", 360, 520, "registration");
         });
     }
     private void singInNewUser(String logg, String pass) {
         DatabaseHandler dbHandler = new DatabaseHandler();
-        User user = new User();
-        user.setName(logg);
-        user.setPassword(pass);
-        ResultSet resultSet = dbHandler.getUser(user);
-        int counter = 0;
+        String message = "SELECT * FROM " + Const.USER_TABLE + ";";
 
-        try {
-            while (resultSet.next()) {
-                counter++;
+        try (ResultSet rs = dbHandler.getDbconnection().createStatement().executeQuery(message)){
+            while (rs.next()) {
+                String login = rs.getString(Const.USER_NAME);
+                String password = rs.getString(Const.USER_PASSWORD);
+                boolean auth = rs.getBoolean(Const.USER_AUTHORIZATION);
+                if(auth && login.equals(logg) && password.equals(pass)){
+                    cp.window("product.fxml", 720, 635, "product");
+                }
+                else{
+                    cp.window("error.fxml", 120, 360, "error");
+                }
             }
-        }catch (SQLException e){
+        }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
-        }
-        if(counter != 0){
-            cp.window("product.fxml", 720, 635, "product");
-        }
-        else{
-            cp.window("error.fxml", 120, 360, "error");
-
         }
     }
 }
