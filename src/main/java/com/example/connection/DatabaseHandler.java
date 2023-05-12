@@ -16,15 +16,17 @@ public class DatabaseHandler implements Const{
                 dbUser, dbPass);
         return dbconnection;
     }
-    public void singUpUser(User user){
+    public void singUpUser(User user, boolean auth){
         String insert = "INSERT " + Const.USER_TABLE + "("
-                + Const.USER_NAME + "," + Const.USER_PASSWORD + ")"
-                + "VALUES(?,?);";
+                + Const.USER_NAME + "," + Const.USER_PASSWORD + "," +
+                Const.USER_AUTHORIZATION + ")"
+                + "VALUES(?,?,?);";
         try {
             PreparedStatement psSt =
                     getDbconnection().prepareStatement(insert);
             psSt.setString(1, user.getName());
             psSt.setString(2, user.getPassword());
+            psSt.setBoolean(3, auth);
 
             psSt.executeUpdate();
             psSt.close();
