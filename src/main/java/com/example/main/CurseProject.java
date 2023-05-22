@@ -6,7 +6,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * This class was being creating to logging all users of company.
+ * @author Ivan Klezovich
+ * @version 1.0
+ */
 public class CurseProject extends Application {
+    /**
+     * This is method for compile all forms without login form.
+     * @param resource path to resource.
+     * @param wight wight of finish window.
+     * @param height height of finish window.
+     * @param title title of the window.
+     */
     public void window(String resource, int wight, int height,String title){
         try {
             Stage stage = new Stage();
@@ -20,6 +32,11 @@ public class CurseProject extends Application {
             e.printStackTrace();
         }
     }
+    /**
+     * This is method compile and view form of login.
+     * @param stage stage
+     * @throws IOException e
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
@@ -29,6 +46,10 @@ public class CurseProject extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    /**
+     * This method was being a mount point of program.
+     * @param args args
+     */
     public static void main(String[] args) {
         launch();
     }

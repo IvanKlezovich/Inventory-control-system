@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import java.util.regex.Pattern;
 
 public class AddProductController {
+    boolean sate = true;
     DatabaseHandler db = new DatabaseHandler();
     @FXML
     private Button AddButton;
@@ -24,66 +25,17 @@ public class AddProductController {
     @FXML
     public void initialize(){
         AddButton.setOnAction(actionEvent -> {
-            boolean sate = true;
-            String name = null;
-            int idEnum = 0;
-            String des = null;
-            int count = 0;
+            String name;
+            String idEnum;
+            String des;
+            String count;
             try {
-                if (Pattern.matches("\\w+", nameField.getText().trim())) {
-                    name = nameField.getText().trim();
-                } else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели цифру");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if (Pattern.matches("\\d+", enumField.getText().trim())) {
-                    idEnum = Integer.parseInt(enumField.getText().trim());
-                } else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели цифру");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if(Pattern.matches("\\d+", countField.getText().trim())){
-                    count = Integer.parseInt(countField.getText().trim());
-                }else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели букву");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if (Pattern.matches("\\w+", desField.getText().trim())) {
-                    des = desField.getText().trim();
-                } else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели число");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
+                name = nameField.getText().trim();
+                idEnum = enumField.getText().trim();
+                count = countField.getText().trim();
+                des = desField.getText().trim();
+                Product product = newUser(name, idEnum, des, count);
                 if (sate) {
-                    Product product = new Product(name, idEnum, count, des);
                     db.addProduct(product);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
@@ -94,9 +46,46 @@ public class AddProductController {
                         }
                     });
                 }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("вы ничего не ввели или ввели цифру");
+                    alert.showAndWait().ifPresent(rs -> {
+                        if (rs == ButtonType.OK) {
+                            System.out.println("Pressed OK.");
+                        }
+                    });
+                }
             }catch (NumberFormatException e){
                 e.printStackTrace();
             }
         });
+    }
+    public Product newUser(String name, String idEnum, String des, String count){
+        Product product = new Product();
+
+        if (Pattern.matches("\\w+", name)) {
+            product.setNameProduct(name);
+        } else {
+            sate = false;
+        }
+        if (Pattern.matches("\\d+", idEnum)) {
+            product.setIdUnits(Integer.parseInt(String.valueOf(idEnum)));
+        } else {
+            sate = false;
+        }
+        if(Pattern.matches("\\d+", count)){
+            product.setCountWare(Integer.parseInt(count));
+        }else {
+            sate = false;
+        }
+        if (Pattern.matches("\\w+", des)) {
+             product.setDescription(des);
+        } else {
+            sate = false;
+        }
+        if(sate) {
+            return product;
+        }else return null;
     }
 }

@@ -48,11 +48,10 @@ public class LoginController{
                 boolean auth = rs.getBoolean(Const.USER_AUTHORIZATION);
                 if(auth && login.equals(logg) && password.equals(pass)){
                     cp.window("product.fxml", 720, 635, "product");
-                }
-                else{
-                    cp.window("error.fxml", 120, 360, "error");
+                    break;
                 }
             }
+            cp.window("error.fxml", 120, 360, "error");
         }catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }

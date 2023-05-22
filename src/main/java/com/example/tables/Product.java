@@ -1,5 +1,7 @@
 package com.example.tables;
 
+import java.util.Objects;
+
 public class Product {
     private int idProduct;
     private String nameProduct;
@@ -35,6 +37,19 @@ public class Product {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return getIdProduct() == product.getIdProduct() && getIdUnits() == product.getIdUnits() && getCountWare() == product.getCountWare() && Objects.equals(getNameProduct(), product.getNameProduct()) && Objects.equals(getDescription(), product.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdProduct(), getNameProduct(), getIdUnits(), getCountWare(), getDescription());
     }
 
     public Product() {}

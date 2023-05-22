@@ -10,7 +10,6 @@ module com.example.curse {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.sql;
-    requires mysql.connector.j;
 
     opens com.example.main to javafx.fxml;
     exports com.example.main;
