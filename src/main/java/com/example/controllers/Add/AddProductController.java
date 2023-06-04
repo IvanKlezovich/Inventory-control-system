@@ -9,6 +9,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import java.util.regex.Pattern;
 
+/**Class for managing the add product form
+ * @author Ivan Klezovich
+ * @version 1.2 */
+
 public class AddProductController {
     boolean sate = true;
     DatabaseHandler db = new DatabaseHandler();
@@ -22,6 +26,14 @@ public class AddProductController {
     private TextField enumField;
     @FXML
     private TextField nameField;
+
+    /**Method for migrate data from form to database.
+     * nameField - name product
+     * enumField - number enum
+     * desField - description
+     * countField - count of product
+     */
+
     @FXML
     public void initialize(){
         AddButton.setOnAction(actionEvent -> {
@@ -61,6 +73,16 @@ public class AddProductController {
             }
         });
     }
+
+    /**Method for protection against incorrect data entry
+     * @param name banana
+     * @param idEnum 2
+     * @param des no
+     * @param count 89
+     * @return product("banana", 2, 89, no)
+     * or null if data has been incorrect.
+     */
+
     public Product newUser(String name, String idEnum, String des, String count){
         Product product = new Product();
 

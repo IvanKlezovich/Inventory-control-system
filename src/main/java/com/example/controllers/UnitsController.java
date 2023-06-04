@@ -18,7 +18,7 @@ import java.sql.SQLException;
 
 public class UnitsController implements Const {
     private final ObservableList<Units> units = FXCollections.observableArrayList();
-    CurseProject cp = new CurseProject();
+    CurseProject curseProject = new CurseProject();
     DatabaseHandler db = new DatabaseHandler();
     @FXML
     private Button CloseUnitsButton;
@@ -37,7 +37,7 @@ public class UnitsController implements Const {
         initDate();
         CloseUnitsButton.setOnAction(actionEvent -> {
             CloseUnitsButton.getScene().getWindow().hide();
-            cp.window("product.fxml", 720, 635, "product");
+            curseProject.window("product.fxml", 720, 635, "product");
         });
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             FilteredList<Units> searchProduct = new FilteredList<>(units);
@@ -51,8 +51,8 @@ public class UnitsController implements Const {
             unitsTable.setItems(searchProduct);
         });
         updateButton.setOnAction(actionEvent -> update());
-        insertButton.setOnAction(actionEvent -> cp.window("addUnits.fxml", 170, 240, "add"));
-        deleteButton.setOnAction(actionEvent -> cp.window("deleteUnits.fxml", 148, 200, "delete"));
+        insertButton.setOnAction(actionEvent -> curseProject.window("addUnits.fxml", 170, 240, "add"));
+        deleteButton.setOnAction(actionEvent -> curseProject.window("deleteUnits.fxml", 148, 200, "delete"));
     }
     public void update(){
         units.clear();

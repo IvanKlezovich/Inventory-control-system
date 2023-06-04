@@ -9,8 +9,8 @@ class AddProductControllerTest {
     @Test
     void nullNameProduct() {
         AddProductController addProduct = new AddProductController();
-        Product product = new Product("null", 1, 9, "no");
-        assertEquals(product, addProduct.newUser("null", "1", "no", "9"));
+        Product product = new Product("", 1, 9, "no");
+        assertEquals(product, addProduct.newUser("", "1", "no", "9"));
     }
     @Test
     void nullIdUnit() {
@@ -27,8 +27,8 @@ class AddProductControllerTest {
     @Test
     void nullDes() {
         AddProductController addProduct = new AddProductController();
-        Product product = new Product("b", 1, 9, "null");
-        assertEquals(product, addProduct.newUser("b", "1", "null", "9"));
+        Product product = new Product("b", 1, 9, "");
+        assertEquals(product, addProduct.newUser("b", "1", "", "9"));
     }
     @Test
     void fNameProduct() {

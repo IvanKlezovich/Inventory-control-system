@@ -6,7 +6,9 @@ import com.example.tables.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
+/**Этот класс для управления формой добавления заказа
+ * @author Ivan Klezovich
+ * @version 1.2 */
 public class AddOrderController {
     DatabaseHandler db = new DatabaseHandler();
     @FXML
@@ -21,12 +23,19 @@ public class AddOrderController {
     private TextField idProvField;
     @FXML
     private TextField priseField;
+    /**Этот метод создан для того что-бы переводить текст из полей в базу данных
+     * addButton - кнопка добавления
+     * idProvField - номер провайдера
+     * priseField - цена
+     * countField - количество продукта
+     * idProdField - номер продукта
+     * delField - время доставки*/
     @FXML
     public void initialize(){
         AddButton.setOnAction(actionEvent -> {
-            int idProvider = Integer.parseInt(idProvField.getText().trim());;
-            int prise = Integer.parseInt(priseField.getText().trim());;
-            int amountOfOrder = Integer.parseInt(countField.getText().trim());;
+            int idProvider = Integer.parseInt(idProvField.getText().trim());
+            int prise = Integer.parseInt(priseField.getText().trim());
+            int amountOfOrder = Integer.parseInt(countField.getText().trim());
             int idProduct = Integer.parseInt(idProdField.getText().trim());
             String del = delField.getText().trim();
             Order order = new Order(idProvider, idProduct, prise, amountOfOrder, del);

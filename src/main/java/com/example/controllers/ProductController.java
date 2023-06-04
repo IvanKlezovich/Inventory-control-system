@@ -40,7 +40,7 @@ public class ProductController {
         initDate();
         OpenOrderButton.setOnAction(actionEvent -> {
            OpenOrderButton.getScene().getWindow().hide();
-            cp.window("order.fxml", 720, 1280, "order");
+            cp.window("order.fxml", 720, 687, "order");
         });
         OpenProviderButton.setOnAction(actionEvent -> {
             OpenProviderButton.getScene().getWindow().hide();

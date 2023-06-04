@@ -1,0 +1,7 @@
+module:com.example.curse
+com.example.connection
+com.example.controllers
+com.example.controllers.Add
+com.example.controllers.Delete
+com.example.main
+com.example.tables
