@@ -21,7 +21,7 @@ public class CurseProject extends Application {
     public void window(String resource, int wight, int height,String title){
         try {Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(CurseProject.class.getResource(resource));
-            Scene scene = new Scene(fxmlLoader.load(), height, wight);
+            Scene scene = new Scene(fxmlLoader.load(), wight, height);
             stage.setTitle(title);
             stage.setScene(scene);
             stage.show();
@@ -41,10 +41,10 @@ public class CurseProject extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 CurseProject.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 520, 360);
-        stage.setTitle("Curse  Project");
+        stage.setTitle("");
         stage.setScene(scene);
         stage.show();
-        window("order.fxml", 720, 687, "order");
+        window("provider.fxml", 719, 720, "provider");
     }
 
     /**

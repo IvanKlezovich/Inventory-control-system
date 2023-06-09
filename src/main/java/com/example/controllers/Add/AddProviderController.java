@@ -89,7 +89,7 @@ public class AddProviderController {
                 }
                 if (sate) {
                     Provider provider = new Provider(FIO, numberPhone, add, numberOfAcc);
-                    db.addProvider(provider);
+                    db.choiceAdd("provider", provider);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
                     alert.setContentText("Все прошло хорошо");

@@ -18,10 +18,9 @@ public class DeleteProductController {
     @FXML
     void initialize(){
         deleteButton.setOnAction(actionEvent -> {
-            int code = 0;
             if(Pattern.matches("\\d+", codeField.getText().trim())){
-                code = Integer.parseInt(codeField.getText().trim());
-                db.delProduct(code);
+                int code = Integer.parseInt(codeField.getText().trim());
+                db.choiceDelete("units", code);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("Все прошло успешно");

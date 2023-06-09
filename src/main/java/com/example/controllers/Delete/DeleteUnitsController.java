@@ -13,11 +13,15 @@ public class DeleteUnitsController {
     private Button deleteButton;
     @FXML
     void initialize(){
+
         deleteButton.setOnAction(actionEvent -> {
             int code = Integer.parseInt(codeField.getText().trim());
-            db.delUnits(code);
-            System.out.println("Удаление");
-            codeField.setText("");
+            if (code <= db.amountInDatabase("units")) {
+                db.choiceDelete("units", code);
+                codeField.setText("");
+            }else{
+
+            }
         });
     }
 }

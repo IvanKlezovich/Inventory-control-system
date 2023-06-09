@@ -14,9 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class ProviderController implements Const {
     private final ObservableList<Provider> providers = FXCollections.observableArrayList();
     CurseProject cp = new CurseProject();
@@ -38,7 +35,7 @@ public class ProviderController implements Const {
         initDate();
         CloseProviderButton.setOnAction(actionEvent -> {
             CloseProviderButton.getScene().getWindow().hide();
-            cp.window("product.fxml", 720, 635, "product");
+            cp.window("product.fxml", 635, 720, "product");
         });
         searchField.textProperty().addListener((observableValue, newValue, oldValue) -> {
             FilteredList<Provider> searchProvider = new FilteredList<>(providers);
@@ -56,51 +53,19 @@ public class ProviderController implements Const {
             providerTable.setItems(searchProvider);
         });
         updateButton.setOnAction(actionEvent -> update());
-        insertButton.setOnAction(actionEvent -> cp.window("addProvider.fxml", 300, 400, "addProvider"));
-        deleteButton.setOnAction(actionEvent -> cp.window("deleteProvider.fxml", 148, 200, "delete"));
+        insertButton.setOnAction(actionEvent -> cp.window("addProvider.fxml", 400, 300, "addProvider"));
+        deleteButton.setOnAction(actionEvent -> cp.window("deleteProvider.fxml", 200, 148, "delete"));
     }
     public void update(){
         providers.clear();
-        String update = "SELECT * FROM " + Const.PROVIDER_TABLE + ";";
 
-        try{
-            ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
-            while (rs.next()){
-                int idProvider = rs.getInt(Const.PROVIDER_ID);
-                String FIO = rs.getString(Const.PROVIDER_FIO);
-                String numberPhone = rs.getString(Const.PROVIDER_NUMBER_PHONE);
-                String address = rs.getString(Const.PROVIDER_ADDRESS);
-                int numberOfAccount = rs.getInt(Const.PROVIDER_NUMBER_ACCOUNT);
-
-                Provider provider = new Provider(idProvider, FIO, numberPhone, address, numberOfAccount);
-                providers.add(provider);
-            }
-            rs.close();
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        providers.addAll(db.initializationTable("provider"));
 
         providerTable.setItems(providers);
     }
     private void initDate() {
-        String query = "SELECT * FROM " + Const.PROVIDER_TABLE+ ";";
 
-        try{
-            ResultSet rs = db.getDbconnection().createStatement().executeQuery(query);
-            while (rs.next()){
-                int idProvider = rs.getInt(Const.PROVIDER_ID);
-                String FIO = rs.getString(Const.PROVIDER_FIO);
-                String numberPhone = rs.getString(Const.PROVIDER_NUMBER_PHONE);
-                String address = rs.getString(Const.PROVIDER_ADDRESS);
-                int numberOfAccount = rs.getInt(Const.PROVIDER_NUMBER_ACCOUNT);
-
-                Provider provider = new Provider(idProvider, FIO, numberPhone, address, numberOfAccount);
-                providers.add(provider);
-            }
-            rs.close();
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        providers.addAll(db.initializationTable("provider"));
 
         TableColumn<Provider, Integer> idOfProvider = new TableColumn<>("Id_provider");
         idOfProvider.setCellValueFactory(new PropertyValueFactory<>("idProvider"));
@@ -115,7 +80,7 @@ public class ProviderController implements Const {
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         TableColumn<Provider, Integer> numberAccount = new TableColumn<>("number_account");
-        numberAccount.setCellValueFactory(new PropertyValueFactory<>("numberOfAccount"));
+        numberAccount.setCellValueFactory(new PropertyValueFactory<>("numberAccount"));
 
         providerTable.getColumns().addAll(idOfProvider, FIO, numberPhone, address, numberAccount);
 

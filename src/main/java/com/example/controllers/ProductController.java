@@ -12,8 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class ProductController {
     private final ObservableList<Product> products = FXCollections.observableArrayList();
@@ -40,11 +38,11 @@ public class ProductController {
         initDate();
         OpenOrderButton.setOnAction(actionEvent -> {
            OpenOrderButton.getScene().getWindow().hide();
-            cp.window("order.fxml", 720, 687, "order");
+            cp.window("order.fxml", 687, 720, "order");
         });
         OpenProviderButton.setOnAction(actionEvent -> {
             OpenProviderButton.getScene().getWindow().hide();
-            cp.window("provider.fxml", 719, 720, "provider");
+            cp.window("provider.fxml", 720, 719, "provider");
         });
         OpenUnitsButton.setOnAction(actionEvent -> {
             OpenUnitsButton.getScene().getWindow().hide();
@@ -67,52 +65,19 @@ public class ProductController {
             productTable.setItems(searchProduct);
         });
         updateButton.setOnAction(actionEvent -> update());
-        insertButton.setOnAction(actionEvent -> cp.window("addProduct.fxml", 300, 400, "addProduct"));
-        deleteButton.setOnAction(actionEvent -> cp.window("deleteProduct.fxml", 148, 200, "delete"));
+        insertButton.setOnAction(actionEvent -> cp.window("addProduct.fxml", 400, 300, "addProduct"));
+        deleteButton.setOnAction(actionEvent -> cp.window("deleteProduct.fxml", 200, 148, "delete"));
     }
     public void update(){
         products.clear();
-        String update = "SELECT * FROM products";
 
-        try{
-            ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
-            while (rs.next()){
-                int id = rs.getInt("idProduct");
-                String name = rs.getString("nameProduct");
-                int idOfUnits = rs.getInt("idUnits");
-                int count = rs.getInt("countWare");
-                String des = rs.getString("description");
-
-                Product product = new Product(id, name, idOfUnits, count, des);
-                products.add(product);
-            }
-            rs.close();
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        products.addAll(db.initializationTable("product"));
 
         productTable.setItems(products);
     }
     private void initDate() {
 
-        String query = "SELECT * FROM products";
-
-        try{
-            ResultSet rs = db.getDbconnection().createStatement().executeQuery(query);
-            while (rs.next()){
-                int id = rs.getInt("idProduct");
-                String name = rs.getString("nameProduct");
-                int idOfUnits = rs.getInt("idUnits");
-                int count = rs.getInt("countWare");
-                String des = rs.getString("description");
-
-                Product product = new Product(id, name, idOfUnits, count, des);
-                products.add(product);
-            }
-            rs.close();
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        products.addAll(db.initializationTable("product"));
 
         TableColumn<Product, Integer> idProduct = new TableColumn<>("Id_product");
         idProduct.setCellValueFactory(new PropertyValueFactory<>("idProduct"));

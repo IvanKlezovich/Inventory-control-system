@@ -13,8 +13,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UnitsController implements Const {
     private final ObservableList<Units> units = FXCollections.observableArrayList();
@@ -37,7 +35,7 @@ public class UnitsController implements Const {
         initDate();
         CloseUnitsButton.setOnAction(actionEvent -> {
             CloseUnitsButton.getScene().getWindow().hide();
-            curseProject.window("product.fxml", 720, 635, "product");
+            curseProject.window("product.fxml", 635, 720, "product");
         });
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             FilteredList<Units> searchProduct = new FilteredList<>(units);
@@ -51,46 +49,19 @@ public class UnitsController implements Const {
             unitsTable.setItems(searchProduct);
         });
         updateButton.setOnAction(actionEvent -> update());
-        insertButton.setOnAction(actionEvent -> curseProject.window("addUnits.fxml", 170, 240, "add"));
-        deleteButton.setOnAction(actionEvent -> curseProject.window("deleteUnits.fxml", 148, 200, "delete"));
+        insertButton.setOnAction(actionEvent -> curseProject.window("addUnits.fxml", 240, 170, "add"));
+        deleteButton.setOnAction(actionEvent -> curseProject.window("deleteUnits.fxml", 200, 148, "delete"));
     }
     public void update(){
         units.clear();
-        String update = "SELECT * FROM " + Const.UNITS_TABLE + ";";
 
-        try{
-            ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
-            while (rs.next()){
-                int id = rs.getInt(Const.UNITS_ID);
-                String name = rs.getString(Const.UNITS_NAME);
-
-                Units unit = new Units(id, name);
-                units.add(unit);
-            }
-            rs.close();
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        units.addAll(db.initializationTable("units"));
 
         unitsTable.setItems(units);
     }
     private void initDate() {
 
-        String update = "SELECT * FROM " + Const.UNITS_TABLE + ";";
-
-        try{
-            ResultSet rs = db.getDbconnection().createStatement().executeQuery(update);
-            while (rs.next()){
-                int id = rs.getInt(Const.UNITS_ID);
-                String name = rs.getString(Const.UNITS_NAME);
-
-                Units unit = new Units(id, name);
-                units.add(unit);
-            }
-            rs.close();
-        }catch (SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        units.addAll(db.initializationTable("units"));
 
         TableColumn<Units, Integer> idUnits = new TableColumn<>("Id_units");
         idUnits.setCellValueFactory(new PropertyValueFactory<>("idUnit"));

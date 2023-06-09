@@ -48,7 +48,7 @@ public class AddProductController {
                 des = desField.getText().trim();
                 Product product = newUser(name, idEnum, des, count);
                 if (sate) {
-                    db.addProduct(product);
+                    db.choiceAdd("product", product);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
                     alert.setContentText("Все прошло хорошо");

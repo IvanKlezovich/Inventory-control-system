@@ -13,7 +13,9 @@ public class ErrorController {
     @FXML
     private Button errorButton;
 
-    /**On authentication error, shows the error form and displays the registration form*/
+    /**
+     * On authentication error, shows the error form and displays the registration form
+     */
 
     @FXML
     void initialize() {

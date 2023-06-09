@@ -18,11 +18,10 @@ public class AddUnitsController {
     @FXML
     public void initialize(){
         AddButton.setOnAction(actionEvent -> {
-            String name = null;
             if(Pattern.matches("\\w+", nameField.getText().trim())){
-                name = nameField.getText().trim();
+                String name = nameField.getText().trim();
                 Units units = new Units(name);
-                db.addUnits(units);
+                db.choiceAdd("units", units);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setContentText("Все прошло успешно");

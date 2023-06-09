@@ -32,9 +32,8 @@ public class RegistrationController {
         regestrationButton.setOnAction(actionEvent -> {
             String logg = inputName.getText().trim();
             String pass = inputPassword.getText().trim();
-            boolean auth = false;
             User user = new User(logg, pass);
-            dh.singUpUser(user, auth);
+            dh.choiceAdd("user", user);
         });
         backButton.setOnAction(actionEvent -> {
             backButton.getScene().getWindow().hide();

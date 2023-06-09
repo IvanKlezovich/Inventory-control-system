@@ -2,7 +2,7 @@ package com.example.tables;
 /**This class was being creating to make sample for set and get items to database.
  * @author Ivan Klezovich
  * @version 1.0*/
-public class Product {
+public class Product{
     private int idProduct;
     private String nameProduct;
     private int idUnits;
