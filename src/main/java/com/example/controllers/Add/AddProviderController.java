@@ -5,12 +5,11 @@ import com.example.tables.Provider;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-
 import java.util.regex.Pattern;
 
 public class AddProviderController {
+    boolean state = true;
     DatabaseHandler db = new DatabaseHandler();
     @FXML
     private Button AddButton;
@@ -25,83 +24,65 @@ public class AddProviderController {
     @FXML
     public void initialize(){
         AddButton.setOnAction(actionEvent -> {
-            boolean sate = true;
-            String FIO = null;
-            String numberPhone = null;
-            String add = null;
-            int numberOfAcc = 0;
+            String FIO;
+            String numberPhone;
+            String add;
+            String numberOfAcc;
             try {
-                if (Pattern.matches("\\w+\\s\\w+", FIOField.getText().trim())) {
-                    FIO = FIOField.getText().trim();
-                }
-                else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели цифру");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if (Pattern.matches("\\+\\d{1,3}\\d{2}\\d{1,7}", numPhoField.getText().trim())) {
-                    numberPhone = numPhoField.getText().trim();
-                }
-                else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели цифру");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if(Pattern.matches("\\w+\\s\\d{1,3}", addField.getText().trim())){
-                    add = addField.getText().trim();
-                }
-                else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели букву");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if (Pattern.matches("\\d+", numAccField.getText().trim())) {
-                    numberOfAcc = Integer.parseInt(numAccField.getText().trim());
-                }
-                else {
-                    sate = false;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("вы ничего не ввели или ввели число");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
-                }
-                if (sate) {
-                    Provider provider = new Provider(FIO, numberPhone, add, numberOfAcc);
+                FIO = FIOField.getText().trim();
+                numberPhone = numPhoField.getText().trim();
+                add = addField.getText().trim();
+                numberOfAcc = numAccField.getText().trim();
+                Provider provider = newProv(FIO, numberPhone, add, numberOfAcc);
+
+                if (state) {
                     db.choiceAdd("provider", provider);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
                     alert.setContentText("Все прошло хорошо");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
+                    alert.showAndWait().ifPresent(rs -> {});
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("вы ничего не ввели или ввели цифру");
+                    alert.showAndWait().ifPresent(rs -> {});
                 }
             }catch (NumberFormatException e){
                 e.printStackTrace();
             }
         });
+    }
+
+    public Provider newProv(String Fio, String numberPhone, String add, String numberOfAcc){
+
+        Provider provider = new Provider();
+
+        if(Pattern.matches("\\w+\\s\\w+", Fio)){
+            provider.setFIO(Fio);
+        }
+        else{
+            state = false;
+        }
+        if (Pattern.matches("\\+\\d{1,3}\\d{2}\\d{1,7}", numberPhone)){
+            provider.setNumberPhone(numberPhone);
+        }
+        else{
+            state = false;
+        }
+        if (Pattern.matches("\\w+\\s\\d{1,3}", add)){
+            provider.setAddress(add);
+        }
+        else{
+            state = false;
+        }
+        if (Pattern.matches("\\d+", numAccField.getText().trim())){
+            provider.setNumberAccount(Integer.parseInt(numberOfAcc));
+        }
+        else{
+            state = false;
+        }
+        if(state) return provider;
+        else return null;
     }
 }

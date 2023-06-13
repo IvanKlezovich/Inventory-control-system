@@ -35,7 +35,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="503.0" layoutY="30.0" prefHeight="199.0" prefWidth="119.0" style="-fx-background-color: #9E3327;">
+            <AnchorPane layoutX="503.0" layoutY="30.0" prefHeight="245.0" prefWidth="119.0" style="-fx-background-color: #9E3327;">
                <children>
                   <Button fx:id="updateButton" layoutX="14.0" layoutY="51.0" mnemonicParsing="false" style="-fx-background-color: #FF0;" text="UPDATE">
                      <font>
@@ -57,6 +57,11 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
+                  <Button fx:id="changeButton" layoutX="13.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" text="CHANGE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <TableView fx:id="productTable" layoutX="14.0" layoutY="14.0" prefHeight="569.0" prefWidth="465.0" />

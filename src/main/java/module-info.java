@@ -1,4 +1,4 @@
-module com.example.curse {
+module com.example.main {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -23,4 +23,6 @@ module com.example.curse {
     opens com.example.controllers.Add to javafx.fxml;
     exports com.example.controllers.Delete;
     opens com.example.controllers.Delete to javafx.fxml;
+    exports com.example.controllers.Change;
+    opens com.example.controllers.Change to javafx.fxml;
 }

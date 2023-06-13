@@ -9,6 +9,7 @@ public interface Const {
     String dbUser = "admin";
     String dbPass = "12345";
     String dbName = "curse";
+
     /**This block of const's for edit and add contents in table.
     * ORDER_TABLE name of table*/
     String ORDER_TABLE = "orders";

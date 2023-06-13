@@ -20,6 +20,8 @@ public class ProductController {
     @FXML
     private TableView<Product> productTable;
     @FXML
+    private Button changeButton;
+    @FXML
     private Button OpenOrderButton;
     @FXML
     private Button OpenProviderButton;
@@ -67,6 +69,9 @@ public class ProductController {
         updateButton.setOnAction(actionEvent -> update());
         insertButton.setOnAction(actionEvent -> cp.window("addProduct.fxml", 400, 300, "addProduct"));
         deleteButton.setOnAction(actionEvent -> cp.window("deleteProduct.fxml", 200, 148, "delete"));
+        changeButton.setOnAction(actionEvent ->{
+            cp.window("changeProduct.fxml", 600, 400, "change");
+        });
     }
     public void update(){
         products.clear();

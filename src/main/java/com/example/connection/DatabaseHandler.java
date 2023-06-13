@@ -3,21 +3,18 @@ package com.example.connection;
 import com.example.tables.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.sql.*;
 
 /**This class create connection to database and for edit database file.
  * @author  Klezovich Ivan
- * @version 1.4
+ * @version 1.5
  */
 
 public class DatabaseHandler implements Const{
     Connection dbconnection;
 
-    /**This method for create connection and test them.
+    /**
+     * This method for create connection and test them.
      * @return connection.
      * @throws ClassNotFoundException e
      * @throws SQLException e
@@ -32,7 +29,8 @@ public class DatabaseHandler implements Const{
         return dbconnection;
     }
 
-    /**This method for add users to table of users.
+    /**
+     * This method for add users to table of users.
      * @param user people with some parameters.
      */
 
@@ -53,10 +51,10 @@ public class DatabaseHandler implements Const{
         } catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }
-
     }
 
-    /**This method for add products with some parameters.
+    /**
+     * This method for add products with some parameters.
      * @param product product with some parameters.
      */
 
@@ -79,7 +77,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for add provider in list of providers in database.
+    /**
+     * This method for add provider in list of providers in database.
      * @param provider provider with some parameters.
      */
 
@@ -102,7 +101,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for add orders in list of orders in database.
+    /**
+     * This method for add orders in list of orders in database.
      * @param order order with some parameters
      */
 
@@ -127,7 +127,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for add units in list of orders in database.
+    /**
+     * This method for add units in list of orders in database.
      * @param units units with some parameters
      */
 
@@ -146,7 +147,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for delete product in database.
+    /**
+     * This method for delete product in database.
      * @param number number of deleting product
      */
     private void delProduct(int number){
@@ -160,9 +162,12 @@ public class DatabaseHandler implements Const{
             e.printStackTrace();
         }
     }
-    /**This method for delete provider in database.
+
+    /**
+     * This method for delete provider in database.
      * @param number number of deleting provider
      */
+
     private void delProvider(int number){
         String delete = "DELETE FROM " + Const.PROVIDER_TABLE +
                 " WHERE " + Const.PROVIDER_ID + " = " + number + ";";
@@ -175,7 +180,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for delete order in database.
+    /**
+     * This method for delete order in database.
      * @param number number of deleting order
      */
 
@@ -191,7 +197,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for delete unit for this number in table.
+    /**
+     * This method for delete unit for this number in table.
      * @param number of deleting unit.
      */
 
@@ -206,6 +213,52 @@ public class DatabaseHandler implements Const{
             e.printStackTrace();
         }
     }
+
+    private void changeProduct(Product product){
+        String insert = "UPDATE " + Const.USER_TABLE + " SET ";
+
+        if((!product.getNameProduct().equals(" ")) && (product.getIdUnits() == 0) && (product.getCountWare() == 0)
+        && (product.getDescription().equals(" "))){
+            insert += Const.PRODUCT_NAME + " = '" + product.getNameProduct() + "'";
+        }
+        else{
+            insert += Const.PRODUCT_NAME + " = '" + product.getNameProduct() + "', ";
+        }
+
+        if(!(product.getIdUnits() == 0) && (product.getCountWare() == 0) && (product.getDescription().equals(" "))){
+            insert += Const.UNITS_ID + " = '" + product.getNameProduct() + "'";
+        }
+        else{
+            insert += Const.UNITS_ID + " = '" + product.getNameProduct() + "', ";
+        }
+
+        if(!(product.getCountWare() == 0) && (product.getDescription().equals(" "))){
+            insert += Const.PRODUCT_COUNT_WARE + " = '" + product.getNameProduct() + "'";
+        }
+        else{
+            insert += Const.PRODUCT_COUNT_WARE + " = '" + product.getNameProduct() + "', ";
+        }
+
+        if(!product.getDescription().equals(" ")) {
+            insert += Const.PRODUCT_DESCRIPTION + " = '" + product.getDescription() + "'";
+        }
+
+        insert += " WHERE (" + Const.PRODUCT_ID + " = '" + product.getIdProduct() + "');";
+
+        try {
+            PreparedStatement psSt = getDbconnection().prepareStatement(insert);
+            psSt.executeUpdate();
+            psSt.close();
+        } catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void changeProvider(Provider provider){}
+
+    private void changeOrder(Order order){}
+
+    private void changeUnits(Units units){}
 
     /**
      * This method for read products from database to program
@@ -350,6 +403,12 @@ public class DatabaseHandler implements Const{
         return false;
     }
 
+    /**
+     * This method for choice table and number that we need to delete
+     * @param scene table that we need to delete something
+     * @param code number that we need to delete
+     */
+
     public void choiceDelete(String scene, int code){
         switch(scene){
             case "product":{
@@ -374,6 +433,12 @@ public class DatabaseHandler implements Const{
         }
     }
 
+    /**
+     * This method for  units in database
+     * @param nameDB name of database
+     * @return amount of units in database
+     */
+
     public int amountInDatabase(String nameDB){
         switch(nameDB){
             case "product":{
@@ -391,6 +456,12 @@ public class DatabaseHandler implements Const{
             default: return 0;
         }
     }
+
+    /**
+     * This method for initialize tables
+     * @param nameBD name of table in database that we download to program
+     * @return list with units.
+     */
 
     public ObservableList initializationTable(String nameBD){
         ObservableList<Product> list = FXCollections.observableArrayList();
@@ -411,6 +482,12 @@ public class DatabaseHandler implements Const{
             default: return list;
         }
     }
+
+    /**
+     * This method for choice table that we need to add unit
+     * @param o - object for add
+     * @param scene table that we need to add
+     */
 
     public void choiceAdd(String scene, Object o){
         switch(scene){
@@ -440,7 +517,8 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    /**This method for authorization people that create new account.
+    /**
+     * This method for authorization people that create new account.
      * @param index index of note those we edit.
      */
 
@@ -453,6 +531,34 @@ public class DatabaseHandler implements Const{
             psSt.close();
         } catch (SQLException | ClassNotFoundException e){
             e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     */
+
+    public void choiceChange(String scene, Object o){
+        switch (scene){
+            case "provider":{
+                changeProvider((Provider) o);
+                break;
+            }
+            case "product":{
+                changeProduct((Product) o);
+                break;
+            }
+            case "units":{
+                changeUnits((Units) o);
+                break;
+            }
+            case "order":{
+                changeOrder((Order) o);
+                break;
+            }
+            default:{
+
+            }
         }
     }
 }

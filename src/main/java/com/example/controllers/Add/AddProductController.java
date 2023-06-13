@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+
 import java.util.regex.Pattern;
 
 /**Class for managing the add product form
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
  * @version 1.2 */
 
 public class AddProductController {
-    boolean sate = true;
+    boolean state = true;
     DatabaseHandler db = new DatabaseHandler();
     @FXML
     private Button AddButton;
@@ -46,17 +47,13 @@ public class AddProductController {
                 idEnum = enumField.getText().trim();
                 count = countField.getText().trim();
                 des = desField.getText().trim();
-                Product product = newUser(name, idEnum, des, count);
-                if (sate) {
+                Product product = newProd(name, idEnum, des, count);
+                if (state) {
                     db.choiceAdd("product", product);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Success");
                     alert.setContentText("Все прошло хорошо");
-                    alert.showAndWait().ifPresent(rs -> {
-                        if (rs == ButtonType.OK) {
-                            System.out.println("Pressed OK.");
-                        }
-                    });
+                    alert.showAndWait().ifPresent(rs -> {});
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -83,31 +80,30 @@ public class AddProductController {
      * or null if data has been incorrect.
      */
 
-    public Product newUser(String name, String idEnum, String des, String count){
+    public Product newProd(String name, String idEnum, String des, String count){
         Product product = new Product();
 
         if (Pattern.matches("\\w+", name)) {
             product.setNameProduct(name);
         } else {
-            sate = false;
+            state = false;
         }
         if (Pattern.matches("\\d+", idEnum)) {
             product.setIdUnits(Integer.parseInt(String.valueOf(idEnum)));
         } else {
-            sate = false;
+            state = false;
         }
         if(Pattern.matches("\\d+", count)){
             product.setCountWare(Integer.parseInt(count));
         }else {
-            sate = false;
+            state = false;
         }
         if (Pattern.matches("\\w+", des)) {
              product.setDescription(des);
         } else {
-            sate = false;
+            state = false;
         }
-        if(sate) {
-            return product;
-        }else return null;
+        if(state) return product;
+        else return null;
     }
 }

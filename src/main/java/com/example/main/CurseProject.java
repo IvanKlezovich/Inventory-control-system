@@ -44,7 +44,9 @@ public class CurseProject extends Application {
         stage.setTitle("");
         stage.setScene(scene);
         stage.show();
-        window("provider.fxml", 719, 720, "provider");
+        window("changeProduct.fxml", 600, 400, " ");
+        window("product.fxml", 635, 720, "product");
+        //window("provider.fxml", 719, 720, "provider");
     }
 
     /**
