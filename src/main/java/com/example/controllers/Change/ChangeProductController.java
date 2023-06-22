@@ -1,6 +1,7 @@
 package com.example.controllers.Change;
 
 import com.example.connection.DatabaseHandler;
+import com.example.main.CurseProject;
 import com.example.tables.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,6 +10,8 @@ import javafx.scene.control.TextField;
 import java.util.regex.Pattern;
 
 public class ChangeProductController {
+
+    CurseProject cp = new CurseProject();
 
     DatabaseHandler db = new DatabaseHandler();
 
@@ -19,6 +22,9 @@ public class ChangeProductController {
 
     @FXML
     private Button changeButton;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private TextField countField;
@@ -32,11 +38,16 @@ public class ChangeProductController {
     @FXML
     private TextField unitField;
 
+    /**
+     *
+     */
+
     @FXML
     void initialize(){
         changeButton.setOnAction(actionEvent -> {
 
             try{
+
                 String idProduct = IDField.getText().trim();
                 String name = nameField.getText().trim();
                 String count = countField.getText().trim();
@@ -62,7 +73,25 @@ public class ChangeProductController {
                 e.printStackTrace();
             }
         });
+
+        exitButton.setOnAction(actionEvent -> {
+
+            exitButton.getScene().getWindow().hide();
+            cp.window("product.fxml", 635, 720, "product");
+
+        });
+
     }
+
+    /**
+     *
+     * @param idProduct
+     * @param name
+     * @param idEnum
+     * @param des
+     * @param count
+     * @return
+     */
 
     public Product newProd(String idProduct, String name, String idEnum, String des, String count){
         Product product = new Product();

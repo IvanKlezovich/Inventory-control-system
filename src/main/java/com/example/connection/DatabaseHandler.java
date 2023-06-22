@@ -214,39 +214,51 @@ public class DatabaseHandler implements Const{
         }
     }
 
+    /**
+     * Method for edit table product
+     * @param product product{1, banana, 9, 15, no}
+     */
+
     private void changeProduct(Product product){
-        String insert = "UPDATE " + Const.USER_TABLE + " SET ";
+        String updateProduct = "UPDATE " + Const.PRODUCTS_TABLE + " SET ";
 
-        if((!product.getNameProduct().equals(" ")) && (product.getIdUnits() == 0) && (product.getCountWare() == 0)
-        && (product.getDescription().equals(" "))){
-            insert += Const.PRODUCT_NAME + " = '" + product.getNameProduct() + "'";
-        }
-        else{
-            insert += Const.PRODUCT_NAME + " = '" + product.getNameProduct() + "', ";
-        }
-
-        if(!(product.getIdUnits() == 0) && (product.getCountWare() == 0) && (product.getDescription().equals(" "))){
-            insert += Const.UNITS_ID + " = '" + product.getNameProduct() + "'";
-        }
-        else{
-            insert += Const.UNITS_ID + " = '" + product.getNameProduct() + "', ";
+        if(!(product.getNameProduct().equals(""))){
+            if ((product.getIdUnits() == 0) && (product.getCountWare() == 0)
+                    && (product.getDescription().equals(""))) {
+                updateProduct += Const.PRODUCT_NAME + " = '" + product.getNameProduct() + "'";
+            } else {
+                updateProduct += Const.PRODUCT_NAME + " = '" + product.getNameProduct() + "', ";
+            }
         }
 
-        if(!(product.getCountWare() == 0) && (product.getDescription().equals(" "))){
-            insert += Const.PRODUCT_COUNT_WARE + " = '" + product.getNameProduct() + "'";
-        }
-        else{
-            insert += Const.PRODUCT_COUNT_WARE + " = '" + product.getNameProduct() + "', ";
+        if(!(product.getIdUnits() == 0)){
+            if((product.getCountWare() == 0) && (product.getDescription().equals(""))
+                    && (product.getNameProduct().equals(""))){
+                updateProduct += Const.UNITS_ID + " = '" + product.getIdUnits() + "'";
+            }
+            else {
+                updateProduct += Const.UNITS_ID + " = '" + product.getIdUnits() + "', ";
+            }
         }
 
-        if(!product.getDescription().equals(" ")) {
-            insert += Const.PRODUCT_DESCRIPTION + " = '" + product.getDescription() + "'";
+        if(!(product.getCountWare() == 0)){
+             if ((product.getDescription().equals("")) && (product.getIdUnits() == 0)
+                     && (product.getNameProduct().equals(""))){
+                updateProduct += Const.PRODUCT_COUNT_WARE + " = '" + product.getCountWare() + "'";
+            }
+            else{
+                updateProduct += Const.PRODUCT_COUNT_WARE + " = '" + product.getCountWare() + "', ";
+            }
         }
 
-        insert += " WHERE (" + Const.PRODUCT_ID + " = '" + product.getIdProduct() + "');";
+        if(!product.getDescription().equals("")) {
+            updateProduct += Const.PRODUCT_DESCRIPTION + " = '" + product.getDescription() + "'";
+        }
+
+        updateProduct += " WHERE (" + Const.PRODUCT_ID + " = '" + product.getIdProduct() + "');";
 
         try {
-            PreparedStatement psSt = getDbconnection().prepareStatement(insert);
+            PreparedStatement psSt = getDbconnection().prepareStatement(updateProduct);
             psSt.executeUpdate();
             psSt.close();
         } catch (SQLException | ClassNotFoundException e){
@@ -254,11 +266,142 @@ public class DatabaseHandler implements Const{
         }
     }
 
-    private void changeProvider(Provider provider){}
+    /**
+     * Method for edit table provider
+     * @param provider provider{1, Kleverov Nikolay Semenovich, +375291353003, st. qwerty 12, 123}
+     */
 
-    private void changeOrder(Order order){}
+    private void changeProvider(Provider provider){
+        String updateProvider = "UPDATE " + Const.PROVIDER_TABLE + " SET ";
 
-    private void changeUnits(Units units){}
+        if(!(provider.getFIO().equals(""))){
+            if ((provider.getNumberPhone().equals("")) && (provider.getNumberAccount() == 0)
+                    && (provider.getAddress().equals(""))) {
+                updateProvider += Const.PROVIDER_FIO + " = '" + provider.getFIO() + "'";
+            } else {
+                updateProvider += Const.PROVIDER_FIO + " = '" + provider.getFIO() + "', ";
+            }
+        }
+
+        if(!(provider.getNumberPhone().equals(""))){
+            if((provider.getNumberAccount() == 0) && (provider.getFIO().equals(""))
+                    && (provider.getAddress().equals(""))){
+                updateProvider += Const.PROVIDER_NUMBER_PHONE + " = '" + provider.getNumberPhone() + "'";
+            }
+            else {
+                updateProvider += Const.PROVIDER_NUMBER_PHONE + " = '" + provider.getNumberPhone() + "', ";
+            }
+        }
+
+        if(!(provider.getNumberAccount() == 0)){
+            if ((provider.getNumberPhone().equals("")) && (provider.getFIO().equals(""))
+                    && (provider.getAddress().equals(""))){
+                updateProvider += Const.PROVIDER_NUMBER_ACCOUNT + " = '" + provider.getNumberAccount() + "'";
+            }
+            else{
+                updateProvider += Const.PROVIDER_NUMBER_ACCOUNT + " = '" + provider.getNumberAccount() + "', ";
+            }
+        }
+
+        if(!provider.getAddress().equals("")) {
+            updateProvider += Const.PROVIDER_ADDRESS + " = '" + provider.getAddress() + "'";
+        }
+
+        updateProvider += " WHERE (" + Const.PROVIDER_ID + " = '" + provider.getIdProvider() + "');";
+
+        try {
+            PreparedStatement psSt = getDbconnection().prepareStatement(updateProvider);
+            psSt.executeUpdate();
+            psSt.close();
+        } catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method for edit order
+     * @param order order{1, 2, 3, 56, 89, no}
+     */
+
+    private void changeOrder(Order order){
+        String updateOrder = "UPDATE " + Const.ORDER_TABLE + " SET ";
+
+        if(!(order.getPrise() == 0)){
+            if ((order.getAmountOfOrder() == 0) && (order.getIdProduct() == 0) && (order.getIdProvider() == 0)
+                    && (order.getDeliveryTime().equals(""))) {
+                updateOrder += Const.ORDER_PRISE + " = '" + order.getPrise() + "'";
+            } else {
+                updateOrder += Const.ORDER_PRISE + " = '" + order.getPrise() + "', ";
+            }
+        }
+
+        if(!(order.getAmountOfOrder() == 0)){
+            if((order.getIdProduct() == 0) && (order.getPrise() == 0) && (order.getIdProvider() == 0)
+                    && (order.getDeliveryTime().equals(""))){
+                updateOrder += Const.ORDER_AMOUNT + " = '" + order.getAmountOfOrder() + "'";
+            }
+            else {
+                updateOrder += Const.ORDER_AMOUNT + " = '" + order.getAmountOfOrder() + "', ";
+            }
+        }
+
+        if(!(order.getDeliveryTime().equals(""))){
+            if ((order.getIdProduct() == 0) && (order.getAmountOfOrder() == 0) && (order.getPrise() == 0)
+                    && (order.getIdProvider() == 0)){
+                updateOrder += Const.PROVIDER_NUMBER_ACCOUNT + " = '" + order.getDeliveryTime() + "'";
+            }
+            else{
+                updateOrder += Const.PROVIDER_NUMBER_ACCOUNT + " = '" + order.getDeliveryTime() + "', ";
+            }
+        }
+
+        if(!(order.getIdProduct() == 0)){
+            if ((order.getIdProduct() == 0) && (order.getAmountOfOrder() == 0) && (order.getPrise() == 0)
+                    && (order.getIdProvider() == 0) && (order.getDeliveryTime().equals(""))){
+                updateOrder += Const.PRODUCT_ID + " = '" + order.getIdProduct() + "'";
+            }
+            else{
+                updateOrder += Const.PRODUCT_ID + " = '" + order.getIdProduct() + "', ";
+            }
+        }
+
+        if(!(order.getIdProvider() == 0)) {
+            updateOrder += Const.PROVIDER_ADDRESS + " = '" + order.getIdProvider() + "'";
+        }
+
+        updateOrder += " WHERE (" + Const.PROVIDER_ID + " = '" + order.getIdOrder() + "');";
+
+        try {
+            PreparedStatement psSt = getDbconnection().prepareStatement(updateOrder);
+            psSt.executeUpdate();
+            psSt.close();
+        } catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method for edit units
+     * @param units units{2, "килограмм"}
+     */
+
+    private void changeUnits(Units units){
+        String updateUnits = "UPDATE " + Const.UNITS_TABLE + " SET ";
+
+        if(!units.getNameUnit().equals("")) {
+            updateUnits += Const.UNITS_NAME + " = '" + units.getNameUnit() + "'";
+        }
+
+        updateUnits += " WHERE (" + Const.UNITS_ID + " = '" + units.getIdUnit() + "');";
+
+        try {
+            PreparedStatement psSt = getDbconnection().prepareStatement(updateUnits);
+            psSt.executeUpdate();
+            psSt.close();
+        } catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method for read products from database to program
@@ -535,7 +678,9 @@ public class DatabaseHandler implements Const{
     }
 
     /**
-     *
+     * Method for choosing table that we need to edit
+     * @param scene table of editing
+     * @param o object that edit
      */
 
     public void choiceChange(String scene, Object o){

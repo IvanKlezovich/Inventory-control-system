@@ -31,6 +31,8 @@ public class ProviderController implements Const {
     @FXML
     private TextField searchField;
     @FXML
+    private Button changeButton;
+    @FXML
     void initialize(){
         initDate();
         CloseProviderButton.setOnAction(actionEvent -> {
@@ -53,6 +55,7 @@ public class ProviderController implements Const {
             providerTable.setItems(searchProvider);
         });
         updateButton.setOnAction(actionEvent -> update());
+        changeButton.setOnAction(actionEvent -> cp.window("changeProvider.fxml", 600, 329, " "));
         insertButton.setOnAction(actionEvent -> cp.window("addProvider.fxml", 400, 300, "addProvider"));
         deleteButton.setOnAction(actionEvent -> cp.window("deleteProvider.fxml", 200, 148, "delete"));
     }
